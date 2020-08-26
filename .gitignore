@@ -1,0 +1,10 @@
+/别人的库
+/AIGC/Debug
+/AIGC/AIGC.vcxproj.filters
+/AIGC/AIGC.vcxproj.user
+/AIGC/TidalClient.cpp
+/AIGC/TidalClient.h
+/AIGC/TidalEnum.h
+/AIGC/TidalModel.h
+main.exe
+.vscode/c_cpp_properties.json

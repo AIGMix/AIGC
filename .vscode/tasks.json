@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "winmain",
+            "command": "C:\\Strawberry\\c\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${workspaceRoot}/AIGC/main.cpp",
+                "${workspaceRoot}/AIGC/src/*.cpp",
+                "-o",
+                "${workspaceRoot}/main.exe",
+                "-I",
+                "${workspaceRoot}/AIGC/include",
+                "-std=c++11",
+                "-lws2_32",  //HttpHelper需要
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
