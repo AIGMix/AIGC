@@ -70,21 +70,6 @@ int main(char arg[100])
     return 0;
 
 
-    LoginKey key = TidalClient::Login("tidalhuangus2007@qq.com", "bitchjolin", "wc8j_yBJd20zOmx0");
-
-    map<string, string> parameters = { 
-        {"username", "tidalhuangus2007@qq.com"}, 
-        {"password", "bitchjolin"},
-        {"token", "wc8j_yBJd20zOmx0"},
-        {"clientUniqueKey", "834e749c80337a6d"},
-        {"clientVersion", "1.9.1"},
-    };
-
-    vector<string> headers = {
-        "Content-Type: application/x-www-form-urlencoded",
-    };
-
-    HttpHelper::Result result = HttpHelper::Post("https://api.tidalhifi.com/v1/login/username", parameters, headers);
     return 0;
 }
 
