@@ -1,8 +1,18 @@
+/**********
+* File    :   HttpHelper.cpp
+* Time    :   2020/08/26
+* Author  :   Yaronzz
+* Version :   1.0
+* Contact :   yaronhuang@foxmail.com
+* Desc    :   
+**********/
+
 #include "HttpHelper.h"
 
 #include <cctype>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <algorithm>
 #include <functional>
 #include <stdexcept>
@@ -690,6 +700,7 @@ namespace AIGC
             Response response = request.send("GET");
 
             result.sData = std::string(response.body.begin(), response.body.end());
+            result.oData = response.body;
             result.bSuccess = true;
         }
         catch (const std::exception& e)
@@ -710,6 +721,7 @@ namespace AIGC
             Response response = request.send("POST", sData, vHeaders);
 
             result.sData = std::string(response.body.begin(), response.body.end());
+            result.oData = response.body;
             result.bSuccess = true;
         }
         catch (const std::exception& e)

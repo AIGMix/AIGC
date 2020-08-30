@@ -8,10 +8,11 @@
                 "-g",
                 "${workspaceRoot}/AIGC/main.cpp",
                 "${workspaceRoot}/AIGC/src/*.cpp",
+                "${workspaceRoot}/AIGC/tidal/*.cpp",
                 "-o",
                 "${workspaceRoot}/main.exe",
-                "-I",
-                "${workspaceRoot}/AIGC/include",
+                "-I${workspaceRoot}/AIGC/include",
+                "-I${workspaceRoot}/AIGC/tidal",
                 "-std=c++11",
                 "-lws2_32",  //HttpHelper需要
             ],

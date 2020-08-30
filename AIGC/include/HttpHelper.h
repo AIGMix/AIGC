@@ -1,6 +1,8 @@
 #pragma once
 
-#include "AIGCBase.h"
+#include <map>
+#include <vector>
+#include <string>
 
 namespace AIGC
 {
@@ -13,7 +15,8 @@ namespace AIGC
 			bool bSuccess;
 			std::string sErrmessage;
 			std::string sData;
-		}Result;
+            std::vector<std::uint8_t> oData;
+        }Result;
 
 		static Result Get(const std::string& sUrl);
 		static Result Post(const std::string& sUrl, const std::map<std::string, std::string>& sData = {}, const std::vector<std::string>& vHeaders = {});

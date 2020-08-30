@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "*.txt": "log",
+        "*.sh": "shellscript",
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "compare": "cpp",
+        "iterator": "cpp",
+        "memory": "cpp",
+        "tuple": "cpp",
+        "xhash": "cpp",
+        "xlocale": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "vector": "cpp"
+    }
+}

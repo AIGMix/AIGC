@@ -1,6 +1,7 @@
 #pragma once
-
-#include "AIGCBase.h"
+#include <list>
+#include <vector>
+#include <string>
 using namespace std;
 
 class TidalResult

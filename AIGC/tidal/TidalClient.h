@@ -1,5 +1,4 @@
 #pragma once
-#include "AIGCBase.h"
 #include "TidalEnum.h"
 #include "TidalModel.h"
 
