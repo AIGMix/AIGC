@@ -1,4 +1,4 @@
-#include "StringHelper.h"
+﻿#include "StringHelper.h"
 
 namespace AIGC
 {
@@ -42,6 +42,36 @@ namespace AIGC
         return str;
     }
 
+    std::string StringHelper::ShiftLeft(const std::string &pStr, int iLength, const char pAdd)
+    {
+        int len = iLength - pStr.length();
+        if (len <= 0)
+            return pStr;
+        
+        std::string str = "";
+        for (int i = 0; i < len; i++)
+        {
+            str += pAdd;
+        }
+
+        return str + pStr;
+    }
+
+    std::string StringHelper::ShiftRight(const std::string &pStr, int iLength, const char pAdd)
+    {
+        int len = iLength - pStr.length();
+        if (len <= 0)
+            return pStr;
+
+        std::string str = "";
+        for (int i = 0; i < len; i++)
+        {
+            str += pAdd;
+        }
+
+        return pStr + str;
+    }
+
     bool StringHelper::IsEnglish(const std::string &pStr)
     {
         int len = pStr.length();
@@ -64,7 +94,7 @@ namespace AIGC
     {
         unsigned char utf[4] = {0};
         unsigned char unicode[3] = {0};
-        for (int i = 0; i < pStr.length(); i++)
+        for (int i = 0; i < (int)pStr.length(); i++)
         {
             if ((pStr[i] & 0x80) == 0)
                 return false;
@@ -94,7 +124,7 @@ namespace AIGC
         if (pStr.length() <= 0)
             return true;
         
-        for (int i = 0; i < pStr.length(); i++)
+        for (int i = 0; i < (int)pStr.length(); i++)
         {
             if ((int)pStr[i] < 48 || (int)pStr[i] > 57)
                 return false;
@@ -105,7 +135,7 @@ namespace AIGC
     std::string StringHelper::ToLower(const std::string &pStr)
     {
         std::string str = pStr;
-        for (int i = 0; i < str.length(); i++)
+        for (int i = 0; i < (int)str.length(); i++)
         {
             //A-Z 65-90 a-z 97-122
             if ((int)str[i] >= 65 && (int)str[i] <= 90)
@@ -117,7 +147,7 @@ namespace AIGC
     std::string StringHelper::ToUpper(const std::string &pStr)
     {
         std::string str = pStr;
-        for (int i = 0; i < str.length(); i++)
+        for (int i = 0; i < (int)str.length(); i++)
         {
             //A-Z 65-90 a-z 97-122
             if ((int)str[i] >= 97 && (int)str[i] <= 122)

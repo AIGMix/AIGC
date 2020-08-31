@@ -3,39 +3,24 @@
 #include <iostream>
 
 #include "StringHelper.h"
+#include <stdio.h>
+#include <chrono>
 #include "HttpHelper.h"
 #include "JsonHelper.h"
+#include "TimeHelper.h"
 #include "TidalClient.h"
 
 using namespace std;
 using namespace AIGC;
 
-class Animal
+#pragma comment(lib, "ws2_32.lib")
+
+int main()
 {
-public:
-    virtual void eat()
-    {
-        cout << "Animal eat" << endl;
-    }
-    virtual int sss() = 0;
 
-};
+    string time = TimeHelper::CurTime();
+    string date = TimeHelper::CurDate();
 
-class Dog : public Animal
-{
-private:
-    void eat()
-    {
-        cout << "dog eat" << endl;
-    }
-    int sss()
-    {
-
-    }
-};
-
-int main(char arg[100])
-{
     string chinese = "中文字符";
     string english = "english";
     string number = "11035";
@@ -49,16 +34,6 @@ int main(char arg[100])
     bflag = StringHelper::IsEnglish(english);
     bflag = StringHelper::IsNumeric(number);
 
-    Animal *A = new Dog;
-    A->eat();
-
-    char* p = new char[10];
-    int size = 0;
-    char ss[] = "hello";
-    size = sizeof(HttpHelper);
-    // size = sizeof(p);
-    // size = sizeof(size);
-
 
     std::cout
         << "hello" << std::endl;
@@ -66,9 +41,6 @@ int main(char arg[100])
 
 
     string value = JsonHelper::GetValue(strJson, {"name"}, string(""));
-
-    return 0;
-
 
     return 0;
 }

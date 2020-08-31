@@ -1,10 +1,4 @@
-/**********
-* Date    :   2020/08/30
-* Author  :   Yaronzz
-* Contact :   yaronhuang@foxmail.com
-* Desc    :   
-**********/
-#pragma once
+﻿ #pragma once
 #include <string>
 
 namespace AIGC
@@ -32,6 +26,22 @@ namespace AIGC
          * @param {string} pRemove 要去除的字符
          */
         static std::string Trim(const std::string &pStr, const std::string pRemove = " ");
+
+        /**
+         * @brief 左侧补位
+         * @param {string} pStr 输入字符串
+         * @param {int} iLength 长度
+         * @param {char} pAdd 补位字符
+         */
+        static std::string ShiftLeft(const std::string &pStr, int iLength, const char pAdd = '0');
+
+        /**
+         * @brief 右侧补位
+         * @param {string} pStr 输入字符串
+         * @param {int} iLength 长度
+         * @param {char} pAdd 补位字符
+         */
+        static std::string ShiftRight(const std::string &pStr, int iLength, const char pAdd = '0');
 
         /**
          * @brief 是否为英文
