@@ -8,6 +8,7 @@
 #include "HttpHelper.h"
 #include "JsonHelper.h"
 #include "TimeHelper.h"
+#include "MathHelper.h"
 #include "TidalClient.h"
 
 using namespace std;
@@ -17,6 +18,13 @@ using namespace AIGC;
 
 int main()
 {
+    Point point1;
+    point1.dX = 1;
+    point1.dY = 3;
+    Point point2;
+    point2.dX = 2;
+    point2.dY = 4;
+    LineEquation equ = MathHelper::GetLineEquation(point1, point2);
 
     string time = TimeHelper::CurTime();
     string date = TimeHelper::CurDate();

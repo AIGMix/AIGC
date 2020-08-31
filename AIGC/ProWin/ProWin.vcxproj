@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\HttpHelper.h" />
     <ClInclude Include="..\include\JsonHelper.h" />
+    <ClInclude Include="..\include\MathHelper.h" />
     <ClInclude Include="..\include\StringHelper.h" />
     <ClInclude Include="..\include\TimeHelper.h" />
   </ItemGroup>
@@ -28,6 +29,7 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\HttpHelper.cpp" />
     <ClCompile Include="..\src\JsonHelper.cpp" />
+    <ClCompile Include="..\src\MathHelper.cpp" />
     <ClCompile Include="..\src\StringHelper.cpp" />
     <ClCompile Include="..\src\TimeHelper.cpp" />
   </ItemGroup>
