@@ -30,6 +30,12 @@
     <ClInclude Include="..\include\MathHelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\PropertyHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TypeHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\HttpHelper.cpp">
@@ -48,6 +54,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MathHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PropertyHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TypeHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

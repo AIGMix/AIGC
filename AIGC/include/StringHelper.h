@@ -1,4 +1,4 @@
-﻿ #pragma once
+﻿#pragma once
 #include <string>
 
 namespace AIGC
@@ -6,6 +6,13 @@ namespace AIGC
 	class StringHelper
 	{
 	public:
+        /**
+         * @brief 是否为空白字符串(只有空格和\n)
+         * @param {string} pStr 输入字符串
+         * @return {bool}
+         */
+        static bool IsEmpty(const std::string &pStr);
+
         /**
          * @brief 去除头部字符
          * @param {string} pStr 输入字符串

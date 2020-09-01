@@ -1,14 +1,17 @@
 ﻿// AIGC.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 #include <iostream>
-
-#include "StringHelper.h"
 #include <stdio.h>
 #include <chrono>
+#include <typeinfo>
+
+#include "StringHelper.h"
 #include "HttpHelper.h"
 #include "JsonHelper.h"
 #include "TimeHelper.h"
 #include "MathHelper.h"
+#include "PropertyHelper.h"
+
 #include "TidalClient.h"
 
 using namespace std;
@@ -16,8 +19,29 @@ using namespace AIGC;
 
 #pragma comment(lib, "ws2_32.lib")
 
+typedef struct _TESTRecord
+{
+    int A;
+    char B[10];
+    int C;
+}TESTRecord;
+
 int main()
 {
+    TESTRecord* pRecord = new TESTRecord{ 2, "hello", 310 };
+
+    PropertyHelper pro;
+    pro.AddProperty("A", ePARA_TYPE_INT, TypeHelper::GetTypeSize(ePARA_TYPE_INT));
+    pro.AddProperty("B", ePARA_TYPE_STRING, sizeof(char[10]));
+    pro.AddProperty("C", ePARA_TYPE_INT, TypeHelper::GetTypeSize(ePARA_TYPE_INT));
+    pro.SetMemory((unsigned char*)pRecord);
+
+    unsigned char* A = pro.GetValue("a");
+    unsigned char* B = pro.GetValue("b");
+    unsigned char* C = pro.GetValue("c");
+
+
+
     Point point1;
     point1.dX = 1;
     point1.dY = 3;

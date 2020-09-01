@@ -57,10 +57,7 @@ namespace AIGC
 
     LineEquation MathHelper::GetLineEquation(const Point &oPoint1, const Point &oPoint2)
     {
-        LineEquation ret;
-        ret.dA = 0;
-        ret.dB = 0;
-        ret.dC = 0;
+        LineEquation ret = { 0,0,0, };
         if (MATH_POINT_EQUAL(oPoint1.dX, oPoint1.dY, oPoint2.dX, oPoint2.dY))
             return ret;
 
@@ -155,7 +152,7 @@ namespace AIGC
          * µ„A(x,y),œﬂAx+By+C=0
          * ¥πœﬂ£∫ y=(B/A)*(x-x0)+y0
          */
-        Point ret;
+        Point ret = { 0, 0 };
         if (MATH_POINT_EQUAL(oLinePoint1.dX, oLinePoint1.dY, oLinePoint2.dX, oLinePoint2.dY))
             return ret;
 

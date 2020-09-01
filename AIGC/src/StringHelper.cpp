@@ -2,6 +2,19 @@
 
 namespace AIGC
 {
+    bool StringHelper::IsEmpty(const std::string &pStr)
+    {
+        if (pStr.length() <= 0)
+            return true;
+        for (int i = 0; i < (int)pStr.length(); i++)
+        {
+            if (pStr[i] == ' ' || pStr[i] == '\n')
+                continue;
+            return false;
+        }
+        return true;
+    }
+
     std::string StringHelper::TrimLeft(const std::string &pStr, const std::string pRemove)
     {
         std::string str = pStr;
