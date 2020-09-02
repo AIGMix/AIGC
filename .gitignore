@@ -54,3 +54,5 @@ AIGC/ProWin/Debug/MathHelper.obj
 AIGC/ProWin/Debug/PropertyHelper.obj
 AIGC/ProWin/Debug/TypeHelper.obj
 AIGC/ProWin/Debug/MathHelper.obj
+/AIGC/ProWin/Debug
+/AIGC/main.cpp

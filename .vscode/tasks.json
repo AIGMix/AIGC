@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "winmain",
-            "command": "C:\\Strawberry\\c\\bin\\g++.exe",
+            "command": "g++.exe",
             "args": [
                 "-g",
                 "${workspaceRoot}/AIGC/main.cpp",

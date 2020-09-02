@@ -12,7 +12,7 @@
             "environment": [],
             "externalConsole": false, // 调试时是否显示控制台窗口，一般设置为true显示控制台
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\Strawberry\\c\\bin\\gdb.exe", // miDebugger的路径，注意这里要与MinGw的路径对应
+            "miDebuggerPath": "gdb.exe", // miDebugger的路径，注意这里要与MinGw的路径对应
             "preLaunchTask": "winmain", // 调试会话开始前执行的任务，一般为编译程序，c++为g++, c为gcc
             "setupCommands": [
                 {

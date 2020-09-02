@@ -2,107 +2,107 @@
 #include "StringHelper.h"
 #include "PropertyHelper.h"
 
-namespace AIGC
+namespace aigc
 {
-    PropertyHelper::PropertyHelper(bool bIgnoreUpLow)
+    PropertyHelper::PropertyHelper(bool ignoreUpLow)
     {
-        m_Memory = NULL;
-        m_Offset = 0;
-        m_IgnoreUpLow = bIgnoreUpLow;
+        m_memory = NULL;
+        m_offset = 0;
+        m_ignoreUpLow = ignoreUpLow;
     }
 
-    void PropertyHelper::SetMemory(unsigned char* pMemory)
+    void PropertyHelper::SetMemory(unsigned char* memory)
     {
-        m_Memory = pMemory;
+        m_memory = memory;
     }
 
-    bool PropertyHelper::AddProperty(const std::string &pName, PARA_TYPE eType, int iByteSize)
+    bool PropertyHelper::AddProperty(const std::string &name, PARA_TYPE type, int byteSize)
     {
-        Property value = {0, iByteSize};
-        std::string name = FormatPropertyName(pName);
+        Property value = {0, byteSize};
+        std::string newName = FormatPropertyName(name);
 
-        if (m_Properties.size() > 0)
+        if (m_properties.size() > 0)
         {
-            if (m_Properties.find(name) != m_Properties.end())
+            if (m_properties.find(newName) != m_properties.end())
                 return false;
 
-            value.iByteSize = iByteSize;
-            value.iOffset = m_Offset;
-            value.eType = eType;
+            value.byteSize = byteSize;
+            value.offset = m_offset;
+            value.type = type;
         }
 
-        m_Offset = MathHelper::Calc4ByteAlignSize(value.iOffset + value.iByteSize);
-        m_Properties.insert(std::pair<std::string, Property>(name, value));
+        m_offset = MathHelper::Calc4ByteAlignSize(value.offset + value.byteSize);
+        m_properties.insert(std::pair<std::string, Property>(newName, value));
         return true;
     }
 
-    PropertyHelper::Property PropertyHelper::GetProperty(const std::string& pName)
+    PropertyHelper::Property PropertyHelper::GetProperty(const std::string& name)
     {
         PropertyHelper::Property ret = { 0, 0, ePARA_TYPE_NONE };
-        std::string name = FormatPropertyName(pName);
-        std::map<std::string, Property>::iterator iTor = m_Properties.find(name);
-        if (iTor == m_Properties.end())
+        std::string newName = FormatPropertyName(name);
+        std::map<std::string, Property>::iterator iTor = m_properties.find(newName);
+        if (iTor == m_properties.end())
             return ret;
 
         Property value = iTor->second;
         return value;
     }
 
-    unsigned char* PropertyHelper::GetValue(const std::string &pName)
+    unsigned char* PropertyHelper::GetValue(const std::string &name)
     {
-        std::string name = FormatPropertyName(pName);
-        std::map<std::string, Property>::iterator iTor = m_Properties.find(name);
-        if (iTor == m_Properties.end())
+        std::string newName = FormatPropertyName(name);
+        std::map<std::string, Property>::iterator iTor = m_properties.find(newName);
+        if (iTor == m_properties.end())
             return NULL;
 
         Property value = iTor->second;
-        return (m_Memory + value.iOffset);
+        return (m_memory + value.offset);
     }
 
-    bool PropertyHelper::SetValue(const std::string &pName, unsigned char* oValue)
+    bool PropertyHelper::SetValue(const std::string &name, unsigned char* value)
     {
         return true;
     }
 
-    std::string PropertyHelper::FormatPropertyName(const std::string& pName)
+    std::string PropertyHelper::FormatPropertyName(const std::string& name)
     {
-        if(m_IgnoreUpLow)
-            return StringHelper::ToLower(pName);
-        return pName;
+        if(m_ignoreUpLow)
+            return StringHelper::ToLower(name);
+        return name;
     }
 
-    bool StaticPropertyHelper::HaveClass(const std::string& pClass)
-    {
-        std::map<std::string, void*>::iterator iTor = m_ClassMap.find(pClass);
-        if (iTor == m_ClassMap.end())
-            return false;
-        return true;
-    }
+    // bool StaticPropertyHelper::HaveClass(const std::string& pClass)
+    // {
+    //     std::map<std::string, void*>::iterator iTor = m_ClassMap.find(pClass);
+    //     if (iTor == m_ClassMap.end())
+    //         return false;
+    //     return true;
+    // }
 
-    bool StaticPropertyHelper::EndAddClassProperty(const std::string& pClass)
-    {
-        if (HaveClass(pClass))
-            return true;
-        m_ClassMap.insert(std::pair<std::string, void*>(pClass, NULL));
-        return false;
-    }
+    // bool StaticPropertyHelper::EndAddClassProperty(const std::string& pClass)
+    // {
+    //     if (HaveClass(pClass))
+    //         return true;
+    //     m_ClassMap.insert(std::pair<std::string, void*>(pClass, NULL));
+    //     return false;
+    // }
 
-    bool StaticPropertyHelper::AddClassProperty(const std::string& pClass, const std::string& pName, PARA_TYPE eType, int iByteSize)
-    {
-        PropertyHelper* pro;
-        std::map<std::string, PropertyHelper>::iterator iTor = m_ClassProperties.find(pClass);
-        if (iTor == m_ClassProperties.end())
-        {
-            pro = &iTor->second;
-            pro->AddProperty(pName, eType, iByteSize);
-            return true;
-        }
+    // bool StaticPropertyHelper::AddClassProperty(const std::string& pClass, const std::string& name, PARA_TYPE type, int byteSize)
+    // {
+    //     PropertyHelper* pro;
+    //     std::map<std::string, PropertyHelper>::iterator iTor = m_ClassProperties.find(pClass);
+    //     if (iTor == m_ClassProperties.end())
+    //     {
+    //         pro = &iTor->second;
+    //         pro->AddProperty(name, type, byteSize);
+    //         return true;
+    //     }
 
-        PropertyHelper pnew;
-        pnew.AddProperty(pName, eType, iByteSize);
-        m_ClassProperties.insert(std::pair<std::string, PropertyHelper>(pClass, pnew));
-        return true;
-    }
+    //     PropertyHelper pnew;
+    //     pnew.AddProperty(name, type, byteSize);
+    //     m_ClassProperties.insert(std::pair<std::string, PropertyHelper>(pClass, pnew));
+    //     return true;
+    // }
 
 
 }

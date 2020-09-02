@@ -6,7 +6,7 @@
 * Contact :   yaronhuang@foxmail.com
 * Desc    :   
 **********/
-
+  
 #include "HttpHelper.h"
 
 #include <cctype>
@@ -688,47 +688,47 @@ private:
     std::string path;
 };
 
-namespace AIGC
+namespace aigc
 {
-    HttpHelper::Result HttpHelper::Get(const std::string& sUrl)
+HttpHelper::Result HttpHelper::Get(const std::string& url)
+{
+    HttpHelper::Result result;
+
+    try
     {
-        HttpHelper::Result result;
+        Request request(url);
+        Response response = request.send("GET");
 
-        try
-        {
-            Request request(sUrl);
-            Response response = request.send("GET");
-
-            result.sData = std::string(response.body.begin(), response.body.end());
-            result.oData = response.body;
-            result.bSuccess = true;
-        }
-        catch (const std::exception& e)
-        {
-            result.bSuccess = false;
-            result.sErrmessage = e.what();
-        }
-        return result;
+        result.dataStr = std::string(response.body.begin(), response.body.end());
+        result.dataBytes = response.body;
+        result.success = true;
     }
-
-    HttpHelper::Result HttpHelper::Post(const std::string& sUrl, const std::map<std::string, std::string>& sData, const std::vector<std::string>& vHeaders)
+    catch (const std::exception& e)
     {
-        HttpHelper::Result result;
-
-        try
-        {
-            Request request(sUrl);
-            Response response = request.send("POST", sData, vHeaders);
-
-            result.sData = std::string(response.body.begin(), response.body.end());
-            result.oData = response.body;
-            result.bSuccess = true;
-        }
-        catch (const std::exception& e)
-        {
-            result.bSuccess = false;
-            result.sErrmessage = e.what();
-        }
-        return result;
+        result.success = false;
+        result.errMessage = e.what();
     }
+    return result;
+}
+
+HttpHelper::Result HttpHelper::Post(const std::string& url, const std::map<std::string, std::string>& data, const std::vector<std::string>& headers)
+{
+    HttpHelper::Result result;
+
+    try
+    {
+        Request request(url);
+        Response response = request.send("POST", data, headers);
+
+        result.dataStr = std::string(response.body.begin(), response.body.end());
+        result.dataBytes = response.body;
+        result.success = true;
+    }
+    catch (const std::exception& e)
+    {
+        result.success = false;
+        result.errMessage = e.what();
+    }
+    return result;
+}
 }

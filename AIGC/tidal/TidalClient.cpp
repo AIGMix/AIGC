@@ -1,7 +1,7 @@
 #include "TidalClient.h"
 #include "HttpHelper.h"
 
-using namespace AIGC;
+using namespace aigc;
 
 static string G_TOKEN = "wc8j_yBJd20zOmx0";
 static string G_BASE_URL = "https://api.tidalhifi.com/v1/";
