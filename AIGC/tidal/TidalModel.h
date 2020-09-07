@@ -7,160 +7,160 @@ using namespace std;
 class TidalResult
 {
 public:
-    bool   bSuccess;
-    string sErrmessage;
+    bool   success;
+    string errMessage;
 };
 
 class LoginKey : public TidalResult
 {
 public:
-    string UserName;
-    string Password;
-    string UserID;
-    string CountryCode;
-    string SessionID;
-    string AccessToken;
+    string userName;
+    string password;
+    string userID;
+    string countryCode;
+    string sessionID;
+    string accestoken;
 };
 
 class TidalArtist : public TidalResult
 {
 public:
-    string   ID;
-    string   Name;
-    string   Type;
-    string   Url;
-    string   Picture;
-    int      Popularity;
-    vector<string> ArtistTypes;
+    string   id;
+    string   name;
+    string   type;
+    string   url;
+    string   picture;
+    int      popularity;
+    vector<string> artistTypes;
 };
 
 class TidalAlbum : public TidalResult
 {
 public:
-    string   ID;
-    string   Title;
-    int      Duration;
-    bool     StreamReady;
-    string   StreamStartDate;
-    bool     AllowStreaming;
-    bool     PremiumStreamingOnly;
-    int      NumberOfTracks;
-    int      NumberOfVideos;
-    int      NumberOfVolumes;
-    string   ReleaseDate;
-    string   Copyright;
-    string   Type;
-    string   Version;
-    string   Url;
-    string   Cover;
-    string   VideoCover;
+    string   id;
+    string   title;
+    int      duration;
+    bool     streamReady;
+    string   streamStartDate;
+    bool     allowStreaming;
+    bool     premiumStreamingOnly;
+    int      numberOfTracks;
+    int      numberOfVideos;
+    int      numberOfVolumes;
+    string   releaseDate;
+    string   copyright;
+    string   type;
+    string   version;
+    string   url;
+    string   cover;
+    string   videoCover;
     bool     Explicit;
-    string   Upc;
-    int      Popularity;
-    string   AudioQuality;
-    TidalArtist   Artist;
-    vector<string> AudioModes;
-    vector<TidalArtist> Artists;
+    string   upc;
+    int      popularity;
+    string   audioQuality;
+    TidalArtist   artist;
+    vector<string> audioModes;
+    vector<TidalArtist> artists;
 };
 
 class TidalTrack : public TidalResult
 {
 public:
-    string   ID;
-    string   Title;
-    int      Duration;
-    string   ReplayGain;
-    string   Peak;
-    bool     AllowStreaming;
-    bool     StreamReady;
-    string   StreamStartDate;
-    bool     PremiumStreamingOnly;
-    int      TrackNumber;
-    int      VolumeNumber;
-    string   Version;
-    int      Popularity;
-    string   Copyright;
-    string   Url;
-    string   Isrc;
-    bool     Editable;
+    string   id;
+    string   title;
+    int      duration;
+    string   replayGain;
+    string   peak;
+    bool     allowStreaming;
+    bool     streamReady;
+    string   streamStartDate;
+    bool     premiumStreamingOnly;
+    int      trackNumber;
+    int      volumeNumber;
+    string   version;
+    int      popularity;
+    string   copyright;
+    string   url;
+    string   isrc;
+    bool     editable;
     bool     Explicit;
-    string   AudioQuality;
-    TidalArtist   Artist;
-    TidalAlbum    Album;
-    vector<string> AudioModes;
-    vector<TidalArtist> Artists;
+    string   audioQuality;
+    TidalArtist   artist;
+    TidalAlbum    album;
+    vector<string> audioModes;
+    vector<TidalArtist> artists;
 };
 
 class StreamUrl : public TidalResult
 {
 public:
-    string TrackID;
-    string Url;
-    string Codec;
-    string EncryptionKey;
-    int    PlayTimeLeftInMinutes;
-    string SoundQuality;
+    string trackID;
+    string url;
+    string codec;
+    string encryptionKey;
+    int    playTimeLeftInMinutes;
+    string soundQuality;
 };
 
 class VideoStreamUrl : public TidalResult
 {
 public:
-    string   Codec;
-    string   Resolution;
-    vector<string> ResolutionArray;
-    string   M3u8Url;
+    string   codec;
+    string   resolution;
+    vector<string> resolutionArray;
+    string   m3u8Url;
 };
 
 class TidalVideo : public TidalResult
 {
 public:
-    string ID;
-    string Title;
-    int    Duration;
+    string id;
+    string title;
+    int    duration;
     string ImageID;
-    int    TrackNumber;
-    string ReleaseDate;
-    string Version;
-    string Copyright;
-    string Quality;
+    int    trackNumber;
+    string releaseDate;
+    string version;
+    string copyright;
+    string quality;
     bool   Explicit;
-    TidalArtist Artist;
-    TidalAlbum  Album;
-    vector<TidalArtist> Artists;
+    TidalArtist artist;
+    TidalAlbum  album;
+    vector<TidalArtist> artists;
 };
 
 class TidalPlaylist : public TidalResult
 {
 public:
-    string UUID;
-    string Title;
-    int    NumberOfTracks;
-    int    NumberOfVideos;
-    string Description;
-    int    Duration;
-    string LastUpdated;
-    string Created;
-    string Type;
-    string Url;
-    string Image;
-    string SquareImage;
-    bool   PublicPlaylist;
-    int    Popularity;
+    string uuid;
+    string title;
+    int    numberOfTracks;
+    int    numberOfVideos;
+    string description;
+    int    duration;
+    string lastUpdated;
+    string created;
+    string type;
+    string url;
+    string image;
+    string squareImage;
+    bool   publicPlaylist;
+    int    popularity;
 };
 
 class SearchResult : public TidalResult
 {
 public:
-    vector<TidalArtist>   Artists;
-    vector<TidalAlbum>    Albums;
-    vector<TidalTrack>    Tracks;
-    vector<TidalVideo>    Videos;
-    vector<TidalPlaylist> Playlists;
+    vector<TidalArtist>   artists;
+    vector<TidalAlbum>    albums;
+    vector<TidalTrack>    tracks;
+    vector<TidalVideo>    videos;
+    vector<TidalPlaylist> playlists;
 };
 
 class TidalItems : public TidalResult
 {
 public:
-    vector<TidalTrack> Tracks;
-    vector<TidalVideo> Videos;
+    vector<TidalTrack> tracks;
+    vector<TidalVideo> videos;
 };

@@ -1,5 +1,12 @@
-﻿#pragma once
+﻿/**********
+* Date    :   2020/09/07
+* Author  :   Yaronzz
+* Contact :   yaronhuang@foxmail.com
+* Desc    :   
+**********/
+#pragma once
 #include <string>
+#include <vector>
 
 namespace aigc
 {
@@ -101,6 +108,14 @@ public:
      * @return {string}
      */
     static std::string Substring(const std::string &str, const std::string &start = "", const std::string &end = "", bool needEnd = false);
+
+    /**
+     * @brief 分割字符串
+     * @param {string} str 输入字符串
+     * @param {string} seperator 要分割的字符集合
+     * @return {vector}
+     */
+    static std::vector<std::string> Split(const std::string &str, char seperator);
 };
 }
 

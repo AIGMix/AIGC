@@ -5,25 +5,25 @@
 class TidalClient
 {
 public:
-    static LoginKey Login(string sUserName, string sPassword, string sToken);
-    static LoginKey Login(string sAccessToken);
+    static LoginKey Login(string userName, string password, string token);
+    static LoginKey Login(string accessToken);
 
-    static TidalAlbum GetAlbum(LoginKey oKey, string sID);
-    static TidalItems GetAlbumItems(LoginKey oKey, string sID);
+    static TidalAlbum GetAlbum(LoginKey key, string id);
+    static TidalItems GetAlbumItems(LoginKey key, string id);
 
-    static TidalTrack GetTrack(LoginKey oKey, string sID);
-    static StreamUrl GetTrackStreamUrl(LoginKey oKey, string sID, eAudioQuality eQuality = eAUDIO_QUALITY_High);
+    static TidalTrack GetTrack(LoginKey key, string id);
+    static StreamUrl GetTrackStreamUrl(LoginKey key, string id, AudioQuality quality = eAUDIO_QUALITY_High);
 
-    static TidalVideo GetVideo(LoginKey oKey, string sID);
-    static list<VideoStreamUrl> GetVideStreamUrls(LoginKey oKey, string sID);
-    static VideoStreamUrl GetVideStreamUrl(LoginKey oKey, string sID, eVideoQuality eReso = eVIDEO_QUALITY_720);
+    static TidalVideo GetVideo(LoginKey key, string id);
+    static list<VideoStreamUrl> GetVideStreamUrls(LoginKey key, string id);
+    static VideoStreamUrl GetVideStreamUrl(LoginKey key, string id, VideoQuality resolution = eVIDEO_QUALITY_720);
 
-    static TidalPlaylist GetPlaylist(LoginKey oKey, string sID);
-    static TidalItems GetPlaylistItems(LoginKey oKey, string sID);
+    static TidalPlaylist GetPlaylist(LoginKey key, string id);
+    static TidalItems GetPlaylistItems(LoginKey key, string id);
 
-    static TidalArtist GetArtist(LoginKey oKey, string sID, bool bContainEPSingle = true);
+    static TidalArtist GetArtist(LoginKey key, string id, bool containEPSingle = true);
 
-    static eTidalType ParseUrl(string sUrl, string& sID);
-    static SearchResult Search(LoginKey oKey, string sTex, int iLimit = 10, eTidalType eType = eTIDAL_TYPE_NONE);
+    static TidalType ParseUrl(string sUrl, string& id);
+    static SearchResult Search(LoginKey key, string text, int limit = 10, TidalType type = eTIDAL_TYPE_NONE);
 };
 

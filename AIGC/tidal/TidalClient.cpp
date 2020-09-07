@@ -9,11 +9,11 @@ static string G_VERSION = "1.9.1";
 
 
 
-LoginKey TidalClient::Login(string sUserName, string sPassword, string sToken)
+LoginKey TidalClient::Login(string userName, string password, string token)
 {
     map<string, string> parameters = {
-        {"username", sUserName},
-        {"password", sPassword},
+        {"username", userName},
+        {"password", password},
         {"token", G_TOKEN},
         {"clientUniqueKey", "834e749c80337a6d"},
         {"clientVersion", G_VERSION},
@@ -26,40 +26,40 @@ LoginKey TidalClient::Login(string sUserName, string sPassword, string sToken)
     HttpHelper::Result result = HttpHelper::Post(G_BASE_URL + "login/username", parameters, headers);
 
     LoginKey ret;
-    ret.bSuccess = result.bSuccess;
-    ret.sErrmessage = result.sErrmessage;
-    if (!result.bSuccess)
+    ret.success = result.success;
+    ret.errMessage = result.errMessage;
+    if (!result.success)
         return ret;
 
-    ret.UserName = sUserName;
-    ret.Password = sPassword;
-    ret.AccessToken = "";
-    ret.CountryCode = "";
-    ret.UserID = "";
-    ret.SessionID = "";
+    ret.userName = userName;
+    ret.password = password;
+    ret.accestoken = "";
+    ret.countryCode = "";
+    ret.userID = "";
+    ret.sessionID = "";
     return ret;
 }
 
-LoginKey TidalClient::Login(string sAccessToken)
+LoginKey TidalClient::Login(string accessToken)
 {
     vector<string> headers = {
-        "authorization:Bearer " + sAccessToken,
+        "authorization:Bearer " + accessToken,
     };
 
     HttpHelper::Result result = HttpHelper::Post("https://api.tidal.com/v1/sessions", {}, headers);
 
     LoginKey ret;
-    ret.bSuccess = result.bSuccess;
-    ret.sErrmessage = result.sErrmessage;
-    if (!result.bSuccess)
+    ret.success = result.success;
+    ret.errMessage = result.errMessage;
+    if (!result.success)
         return ret;
 
-    ret.UserName = "";
-    ret.Password = "";
-    ret.AccessToken = sAccessToken;
-    ret.CountryCode = "";
-    ret.UserID = "";
-    ret.SessionID = "";
+    ret.userName = "";
+    ret.password = "";
+    ret.accestoken = accessToken;
+    ret.countryCode = "";
+    ret.userID = "";
+    ret.sessionID = "";
     return ret;
 }
 
@@ -68,17 +68,17 @@ LoginKey TidalClient::Login(string sAccessToken)
 
 
 template<typename T>
-static T& Request(LoginKey oKey, string sPath, T& oRet, map<string, string> oParas = {}, int iRetry = 3)
+static T& Request(LoginKey key, string path, T& ret, map<string, string> paras = {}, int retry = 3)
 {
-    oParas.insert(pair<string,string>("countryCode", oKey.CountryCode));
+    paras.insert(pair<string, string>("countryCode", key.countryCode));
 
     vector<string> headers = {};
-    if (oKey.AccessToken.length() > 0)
-        headers.push_back("authorization:Bearer " + oKey.AccessToken);
+    if (key.accestoken.length() > 0)
+        headers.push_back("authorization:Bearer " + key.accestoken);
     else
-        headers.push_back("X-Tidal-SessionId: " + oKey.SessionID);
+        headers.push_back("X-Tidal-SessionId: " + key.sessionID);
 
-    HttpHelper::Result result = HttpHelper::Post(G_BASE_URL + sPath, oParas, headers);
+    HttpHelper::Result result = HttpHelper::Post(G_BASE_URL + path, paras, headers);
 
-    return oRet;
+    return ret;
 }

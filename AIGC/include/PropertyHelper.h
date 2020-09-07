@@ -71,16 +71,4 @@ private:
     std::map<std::string, Property> m_properties;
 };
 
-
-// class StaticPropertyHelper
-// {
-// public:
-//     static bool HaveClass(const std::string& pClass);
-//     static bool EndAddClassProperty(const std::string& pClass);
-//     static bool AddClassProperty(const std::string& pClass, const std::string& pName, PARA_TYPE eType, int iByteSize);
-
-// private:
-//     static std::map<std::string, PropertyHelper> m_ClassProperties;
-//     static std::map<std::string, void*> m_ClassMap;
-// };
 }

@@ -6,7 +6,7 @@
             "command": "g++.exe",
             "args": [
                 "-g",
-                "${workspaceRoot}/AIGC/main.cpp",
+                // "${workspaceRoot}/AIGC/main.cpp",
                 "${workspaceRoot}/AIGC/src/*.cpp",
                 "${workspaceRoot}/AIGC/tidal/*.cpp",
                 "-o",

@@ -211,4 +211,28 @@ std::string StringHelper::Substring(const std::string &str, const std::string &s
         return str.substr(iStartIdx + start.length());
 }
 
+std::vector<std::string> StringHelper::Split(const std::string &str, char seperator)
+{
+    std::vector<std::string> ret;
+    auto string_find_first_not = [str, seperator](size_t pos = 0) -> size_t {
+        for (size_t i = pos; i < str.size(); i++)
+        {
+            if (str[i] != seperator)
+                return i;
+        }
+        return std::string::npos;
+    };
+
+    size_t lastPos = string_find_first_not(0);
+    size_t pos = str.find(seperator, lastPos);
+    while (lastPos != std::string::npos)
+    {
+        ret.emplace_back(str.substr(lastPos, pos - lastPos));
+        lastPos = string_find_first_not(pos);
+        pos = str.find(seperator, lastPos);
+    }
+
+    return ret;
+}
+
 }

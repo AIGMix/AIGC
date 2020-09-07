@@ -71,38 +71,5 @@ namespace aigc
         return name;
     }
 
-    // bool StaticPropertyHelper::HaveClass(const std::string& pClass)
-    // {
-    //     std::map<std::string, void*>::iterator iTor = m_ClassMap.find(pClass);
-    //     if (iTor == m_ClassMap.end())
-    //         return false;
-    //     return true;
-    // }
-
-    // bool StaticPropertyHelper::EndAddClassProperty(const std::string& pClass)
-    // {
-    //     if (HaveClass(pClass))
-    //         return true;
-    //     m_ClassMap.insert(std::pair<std::string, void*>(pClass, NULL));
-    //     return false;
-    // }
-
-    // bool StaticPropertyHelper::AddClassProperty(const std::string& pClass, const std::string& name, PARA_TYPE type, int byteSize)
-    // {
-    //     PropertyHelper* pro;
-    //     std::map<std::string, PropertyHelper>::iterator iTor = m_ClassProperties.find(pClass);
-    //     if (iTor == m_ClassProperties.end())
-    //     {
-    //         pro = &iTor->second;
-    //         pro->AddProperty(name, type, byteSize);
-    //         return true;
-    //     }
-
-    //     PropertyHelper pnew;
-    //     pnew.AddProperty(name, type, byteSize);
-    //     m_ClassProperties.insert(std::pair<std::string, PropertyHelper>(pClass, pnew));
-    //     return true;
-    // }
-
 
 }
