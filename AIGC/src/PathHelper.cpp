@@ -112,7 +112,7 @@ namespace aigc
         } while (_findnext(fileHandle, &fileinfo) == 0); 
 
         //关闭句柄
-        _findclose(fileHandle);
+        // _findclose(fileHandle);
         return ret;
     }
 
@@ -175,7 +175,7 @@ namespace aigc
             } while (_findnext(fileHandle, &fileinfo) == 0);
 
             //关闭句柄
-            _findclose(fileHandle);
+            // _findclose(fileHandle);
         }
         return rmdir(path.c_str()) == 0;
     }
