@@ -1,13 +1,14 @@
 #include "FileHelper.h"
-#include <io.h>
 #include "StringHelper.h"
+#include "PathHelper.h"
+#include <io.h>
 
 namespace aigc
 {
 
 long FileHelper::GetSize(const std::string &filePath)
 {
-    FILE *fp = fopen(filePath.c_str(), "r+");
+    FILE *fp = fopen(filePath.c_str(), "rb");
     if (fp == NULL)
         return 0;
 
@@ -28,6 +29,11 @@ bool FileHelper::Copy(const std::string &filePath, const std::string &toPath)
 {
     FILE *srcFP = fopen(filePath.c_str(), "rb");
     if (srcFP == NULL)
+        return false;
+
+    //创建目录
+    std::string dirname = PathHelper::GetDirName(toPath);
+    if (PathHelper::Mkdirs(dirname) == false)
         return false;
 
     FILE *descFP = fopen(toPath.c_str(), "wb+");

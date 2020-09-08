@@ -21,15 +21,15 @@ class TypeHelper
 public:
     /**
      * @brief 获取类型字节大小
-     * @param {PARA_TYPE} eType 类型
-     * @return {int} 字节数
+     * @param type 类型
+     * @return 字节数
      */
     static int GetTypeSize(PARA_TYPE type);
 
     /**
      * @brief 获取类型名称
-     * @param {PARA_TYPE} eType 类型
-     * @return {string} 名称
+     * @param type 类型
+     * @return 名称
      */
     static std::string GetTypeName(PARA_TYPE type);
 };

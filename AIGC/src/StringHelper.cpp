@@ -235,4 +235,20 @@ std::vector<std::string> StringHelper::Split(const std::string &str, char sepera
     return ret;
 }
 
+std::string StringHelper::Replace(const std::string &str, const std::string &fromStr, const std::string &toStr)
+{
+    std::string ret = str;
+    std::string::size_type pos = 0;
+    std::string::size_type srclen = fromStr.size();
+    std::string::size_type dstlen = toStr.size();
+
+    while ((pos = ret.find(fromStr, pos)) != std::string::npos)
+    {
+        ret = ret.replace(pos, srclen, toStr);
+        pos += dstlen;
+    }
+
+    return ret;
+}
+
 }
