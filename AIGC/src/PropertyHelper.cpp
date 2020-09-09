@@ -38,7 +38,7 @@ namespace aigc
 
     PropertyHelper::Property PropertyHelper::GetProperty(const std::string& name)
     {
-        PropertyHelper::Property ret = { 0, 0, ePARA_TYPE_NONE };
+        PropertyHelper::Property ret = { 0, 0, PARA_TYPE::NONE };
         std::string newName = FormatPropertyName(name);
         std::map<std::string, Property>::iterator iTor = m_properties.find(newName);
         if (iTor == m_properties.end())

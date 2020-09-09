@@ -4,17 +4,17 @@
 namespace aigc
 {
     
-typedef enum _PARA_TYPE
+enum class PARA_TYPE
 {
-    ePARA_TYPE_NONE = 0,
-    ePARA_TYPE_INT,
-    ePARA_TYPE_CHAR,
-    ePARA_TYPE_BOOL,
-    ePARA_TYPE_FLOAT,
-    ePARA_TYPE_STRING,
-    ePARA_TYPE_DOUBLE,
-    ePARA_TYPE_PTR,
-}PARA_TYPE;
+    NONE = 0,
+    INT,
+    CHAR,
+    BOOL,
+    FLOAT,
+    DOUBLE,
+    STRING,
+    PTR,
+};
 
 class TypeHelper
 {

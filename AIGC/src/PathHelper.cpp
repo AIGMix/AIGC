@@ -2,8 +2,9 @@
 #include "StringHelper.h"
 #include "FileHelper.h"
 
-#include <direct.h>
 #include <io.h>
+#include <stdio.h>
+#include <direct.h>
 #include <string.h>
 #include <iostream>
 
@@ -24,6 +25,12 @@ namespace aigc
 
     bool PathHelper::IsAbsolutePath(const std::string &path)
     {
+        /**
+         * 样例 g:/  
+         *     g:\  
+         *     \\192.168.0.1  
+         *     /root 
+         */
         if (path.find(":/") == 1 || path.find(":\\") == 1 || path.find("\\\\") == 0 || path.find("/") == 0)
             return true;
         return false;
@@ -112,7 +119,7 @@ namespace aigc
         } while (_findnext(fileHandle, &fileinfo) == 0); 
 
         //关闭句柄
-        // _findclose(fileHandle);
+        _findclose(fileHandle);
         return ret;
     }
 
@@ -126,6 +133,7 @@ namespace aigc
 
         //将‘//’的分隔符改成‘/'
         tmppath = StringHelper::Replace(path, "//", "/");
+        
         //最后一个符号如果是'/'要去掉，不然下面的步骤会出问题
         if (tmppath[tmppath.size() - 1] == '/')
             tmppath = tmppath.substr(0, tmppath.size() - 1);
@@ -175,7 +183,7 @@ namespace aigc
             } while (_findnext(fileHandle, &fileinfo) == 0);
 
             //关闭句柄
-            // _findclose(fileHandle);
+            _findclose(fileHandle);
         }
         return rmdir(path.c_str()) == 0;
     }
