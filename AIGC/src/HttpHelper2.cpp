@@ -127,11 +127,10 @@ namespace aigc
         return result;
     }
 
-    HttpHelper::Result HttpHelper::Send(const std::string &url,
-                                        const std::string method,
-                                        const std::map<std::string, std::string> &parameters,
-                                        const std::vector<std::string> &headers,
-                                        bool isIPv6)
+    HttpHelper::Response HttpHelper::GetResponse(const std::string &url,
+                                                 const std::string method,
+                                                 const std::map<std::string, std::string> &parameters,
+                                                 const std::vector<std::string> &headers)
     {
         std::string body;
         bool first = true;
@@ -142,7 +141,7 @@ namespace aigc
             first = false;
             body += UrlEncode(parameter.first) + "=" + UrlEncode(parameter.second);
         }
-        return Send(url, method, body, headers, isIPv6);
+        return GetResponse(url, method, body, headers);
     }
 
     /**
@@ -279,18 +278,17 @@ namespace aigc
         return false;
     }
 
-    HttpHelper::Result HttpHelper::Send(const std::string &inUrl,
-                                        const std::string method,
-                                        const std::string &inBody,
-                                        const std::vector<std::string> &headers,
-                                        bool isIPv6)
+    HttpHelper::Response HttpHelper::GetResponse(const std::string &inUrl,
+                                                 const std::string method,
+                                                 const std::string &inBody,
+                                                 const std::vector<std::string> &headers)
     {
-        Result result;
+        Response result;
         Url url = GetUrl(inUrl);
         std::vector<uint8_t> body = std::vector<uint8_t>(inBody.begin(), inBody.end());
 
         //连接
-        SocketHelper socket(isIPv6 ? SocketHelper::Protocol::IPv6 : SocketHelper::Protocol::IPv4);
+        SocketHelper socket(SocketHelper::Protocol::IPv4);
         if (socket.Connect(url.domain, url.port) == false)
         {
             result.success = false;
@@ -386,6 +384,6 @@ namespace aigc
 
 int main()
 {
-    aigc::HttpHelper::Result ret = aigc::HttpHelper::Send("www.baidu.com", "GET", "");
+    aigc::HttpHelper::Response ret = aigc::HttpHelper::GetResponse("www.baidu.com", "GET", "");
     return 0;
 }

@@ -18,7 +18,7 @@ public:
         std::string path;    //路径
     }Url;
 
-    typedef struct ResultStruct
+    typedef struct ResponseStruct
     {
         int status;
         bool success;
@@ -26,7 +26,7 @@ public:
         std::string dataStr;
         std::vector<char> dataBytes;
         std::vector<std::string> headers;
-    }Result;
+    } Response;
 
     /**
      * @brief 获取解析后的链接
@@ -46,13 +46,11 @@ public:
      * @param method GET/POST
      * @param body 内容
      * @param headers 头
-     * @param isIPv6 是否IPV6
      */
-    static Result Send(const std::string &url,
-                       const std::string method,
-                       const std::string &body,
-                       const std::vector<std::string> &headers = {},
-                       bool isIPv6 = false);
+    static Response GetResponse(const std::string &url,
+                                const std::string method,
+                                const std::string &body,
+                                const std::vector<std::string> &headers = {});
 
     /**
      * @brief 发送请求
@@ -60,28 +58,26 @@ public:
      * @param method GET/POST
      * @param parameters 参数集合
      * @param headers 头
-     * @param isIPv6 是否IPV6
      */
-    static Result Send(const std::string &url,
-                       const std::string method,
-                       const std::map<std::string, std::string> &parameters,
-                       const std::vector<std::string> &headers = {},
-                       bool isIPv6 = false);
+    static Response GetResponse(const std::string &url,
+                                const std::string method,
+                                const std::map<std::string, std::string> &parameters,
+                                const std::vector<std::string> &headers = {});
 
-    ///**
-    // * @brief Get操作
-    // * @param url 链接
-    // */
-    //static Result Get(const std::string& url);
 
-    ///**
-    // * @brief Post操作
-    // * @param url 链接
-    // * @param data 数据
-    // * @param headers 头
-    // */
-    //static Result Post(const std::string& url, const std::map<std::string, std::string>& data = {}, const std::vector<std::string>& headers = {});
+    static Response Get(const std::string &url,
+                        const std::map<std::string, std::string> &parameters,
+                        const std::vector<std::string> &headers = {})
+    {
+        return GetResponse(url, "GET", parameters, headers);
+    }
 
+    static Response Post(const std::string &url,
+                         const std::map<std::string, std::string> &parameters,
+                         const std::vector<std::string> &headers = {})
+    {
+        return GetResponse(url, "POST", parameters, headers);
+    }
 };
 }
 
