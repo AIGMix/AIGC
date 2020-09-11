@@ -1,4 +1,5 @@
-#include "HashHelper.h"
+﻿#include "HashHelper.h"
+#include <string.h>
 
 namespace aigc
 {
@@ -13,6 +14,12 @@ HashHelper<TVALUE>::HashHelper(int capacity)
 
     int size = sizeof(Node*) * m_capacity;
     m_array = (Node **)malloc(size);
+    if (m_array == NULL)
+    {
+        m_capacity = 0;
+        m_cmpCapacity = 0;
+    }
+
     memset(m_array, 0, size);
 }
 
@@ -24,6 +31,7 @@ HashHelper<TVALUE>::~HashHelper()
     m_cmpCapacity = 0;
     if (m_array != NULL)
     {
+        RemoveAll();
         free(m_array);
         m_array = NULL;
     }
@@ -32,11 +40,23 @@ HashHelper<TVALUE>::~HashHelper()
 template <typename TVALUE>
 bool HashHelper<TVALUE>::Add(std::string key, TVALUE value)
 {
+    //查找节点，如果存在则覆盖值
+    Node* find = NULL;
+    if (GetNode(key, &find) == true)
+    {
+        find->value = value;
+        return true;
+    }
+
+    //扩充容量
     ExpandIfNecessary();
+
+    //计算哈希值和下标
     int hash = CalcHash(key);
     int index = CalcSeatIndex(hash);
-
-    Node *find = m_array[index];
+    
+    //在链表上移动至链表尾
+    find = m_array[index];
     while(find != NULL)
     {
         if (find->key == key)
@@ -46,8 +66,9 @@ bool HashHelper<TVALUE>::Add(std::string key, TVALUE value)
         find = find->next;
     }
 
-    Node* node = CreatNode(hash, key, value);
-    if (node == NULL)
+    //新建节点
+    Node* node = NULL;
+    if (CreatNode(hash, key, value, &node) == false)
         return false;
     
     if (find != NULL)
@@ -55,6 +76,7 @@ bool HashHelper<TVALUE>::Add(std::string key, TVALUE value)
     else
         m_array[index] = node; 
     
+    m_count++;
     return true;
 }
 
@@ -84,32 +106,49 @@ bool HashHelper<TVALUE>::Remove(std::string key)
             pre->next = find->next;
         
         RemoveNode(find);
+        m_count--;
         return true;
     }
     return true;
 }
 
 template <typename TVALUE>
-TVALUE& HashHelper<TVALUE>::Get(std::string key)
+bool HashHelper<TVALUE>::RemoveAll()
 {
-    int hash = CalcHash(key);
-    int index = CalcSeatIndex(hash);
-
-    Node *find = m_array[index];
-    if (find == NULL)
-        return true;
-
-    while (find != NULL)
+    for (int i = 0; i < m_capacity; i++)
     {
-        if (find->key != key)
+        Node* node = m_array[i];
+        while (node != NULL)
         {
-            find = find->next;
-            continue;
+            Node* next = node->next;
+            RemoveNode(node);
+            node = next;
         }
-
-        return find->value;
+        m_array[i] = NULL;
     }
-    return NULL;
+    m_count = 0;
+    return true;
+}
+
+
+template <typename TVALUE>
+TVALUE HashHelper<TVALUE>::Get(std::string key, TVALUE defaultValue)
+{
+    Node* find = NULL;
+    if (GetNode(key, &find) == true)
+        return find->value;
+
+    return defaultValue;
+}
+
+template <typename TVALUE>
+TVALUE& HashHelper<TVALUE>::operator[](std::string key)
+{
+    Node* find = NULL;
+    if (GetNode(key, &find) == true)
+        return find->value;
+
+    throw "No this key in the hash table";
 }
 
 template<typename TVALUE>
@@ -135,6 +174,7 @@ int HashHelper<TVALUE>::CalcHash(std::string key)
     // AlgorithmBKDR
     unsigned int temp = 0;
     unsigned int seed = 131; //31 131 1313 13131
+    unsigned int value = 0;
     for (int i = 0; i < key.size(); i++)
     {
         temp = temp * seed + key[i];
@@ -142,11 +182,11 @@ int HashHelper<TVALUE>::CalcHash(std::string key)
     temp = temp & 0x7FFFFFFF;
 
     // 第二层
-    unsigned int hash = ~(temp << 9);
-    hash ^= (((unsigned int)hash) >> 14);
-    hash += (hash << 4);
-    hash ^= (((unsigned int)hash) >> 10);
-    return (int)hash;
+    value = ~(temp << 9);
+    value ^= (((unsigned int)value) >> 14);
+    value += (value << 4);
+    value ^= (((unsigned int)value) >> 10);
+    return (int)value;
 }
 
 template <typename TVALUE>
@@ -163,7 +203,10 @@ void HashHelper<TVALUE>::ExpandIfNecessary()
         int newCapacity = m_capacity << 1;
         int size = sizeof(Node *) * m_capacity;
         Node** newArray = (Node **)malloc(size);
-        memset(newArray, 0, size);
+        if (newArray != NULL)
+        {
+            memset(newArray, 0, size);
+        }
 
         for (int i = 0; i < m_capacity; i++)
         {
@@ -178,17 +221,38 @@ void HashHelper<TVALUE>::ExpandIfNecessary()
 }
 
 template <typename TVALUE>
-HashHelper<TVALUE>::Node* HashHelper<TVALUE>::CreatNode(int hash, std::string key, TVALUE value)
+bool HashHelper<TVALUE>::CreatNode(int hash, std::string key, TVALUE value, Node **node)
 {
-    Node* node = (Node*)malloc(sizeof(Node));
+    *node = new Node();
     if (node == NULL)
-        return NULL;
+        return false;
 
-    node->hash = hash;
-    node->key = key;
-    node->value = value;
-    node->next = NULL;
-    return node;
+    (*node)->hash = hash;
+    (*node)->key = key;
+    (*node)->value = value;
+    (*node)->next = NULL;
+    return true;
+}
+
+template <typename TVALUE>
+bool HashHelper<TVALUE>::GetNode(std::string key, Node** node)
+{
+    int hash = CalcHash(key);
+    int index = CalcSeatIndex(hash);
+
+    Node* find = m_array[index];
+    while (find != NULL)
+    {
+        if (find->key != key)
+        {
+            find = find->next;
+            continue;
+        }
+
+        *node = find;
+        return true;
+    }
+    return false;
 }
 
 template <typename TVALUE>
@@ -196,11 +260,24 @@ void HashHelper<TVALUE>::RemoveNode(Node *node)
 {
     if (node != NULL) 
     {
-        free(node);
+        delete node;
         node = NULL;
     }
 }
 
-
-
 }
+
+// int main()
+// {
+//     aigc::HashHelper<int> hash(10);
+    
+//     hash.Add("my", 10);
+//     hash.Add("test", 20);
+//     hash.Remove("my");
+//     int value1 = hash.Get("my", -1);
+//     int value2 = hash.Get("test", -1);
+//     int value3 = hash["test"];
+//     int value4 = hash["my"];
+
+//     return 0;
+// }

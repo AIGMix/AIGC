@@ -36,11 +36,44 @@
     <ClInclude Include="..\include\TypeHelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\FileHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GithubHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HashHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\LogHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\M3u8Helper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MutexHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PathHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\QueueHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RandomHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SystemHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ThreadHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SocketHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\HttpHelper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\JsonHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -50,9 +83,6 @@
     <ClCompile Include="..\src\TimeHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MathHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -60,6 +90,27 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TypeHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FileHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HashHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PathHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RandomHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SystemHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HttpHelper2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SocketHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

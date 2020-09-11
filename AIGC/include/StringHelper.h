@@ -1,10 +1,4 @@
-﻿/**********
-* Date    :   2020/09/07
-* Author  :   Yaronzz
-* Contact :   yaronhuang@foxmail.com
-* Desc    :   
-**********/
-#pragma once
+﻿#pragma once
 #include <string>
 #include <vector>
 

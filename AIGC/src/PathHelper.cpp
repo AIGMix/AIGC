@@ -1,4 +1,4 @@
-#include "PathHelper.h"
+﻿#include "PathHelper.h"
 #include "StringHelper.h"
 #include "FileHelper.h"
 
@@ -49,8 +49,8 @@ namespace aigc
             paths.insert(paths.begin(), pwdPaths.begin(), pwdPaths.end());
         }
 
-        //遍历查找 .和..
-        int num = paths.size();
+        /*遍历查找 .和..*/
+        int num = (int)paths.size();
         for (int i = num - 1; i >= 0; i--)
         {
             if (paths[i] == ".")
@@ -89,7 +89,7 @@ namespace aigc
 
     std::vector<std::string> PathHelper::GetAllFiles(const std::string &path)
     {
-        //文件句柄和文件信息
+        /*文件句柄和文件信息*/
         long fileHandle = 0;
         struct _finddata_t fileinfo;
         std::string tmpPath;
@@ -100,13 +100,13 @@ namespace aigc
 
         do
         {
-            //判断是否为子目录
+            /*判断是否为子目录*/
             if ((fileinfo.attrib & _A_SUBDIR))
             { 
                 if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0)
                 {
                     // ret.push_back(tmpPath.assign(path).append("/").append(fileinfo.name));
-                    //递归搜索
+                    /*递归搜索*/
                     std::vector<std::string> subfiles = GetAllFiles(tmpPath.assign(path).append("/").append(fileinfo.name));
                     ret.insert(ret.end(), subfiles.begin(), subfiles.end());
                 }
@@ -118,7 +118,7 @@ namespace aigc
 
         } while (_findnext(fileHandle, &fileinfo) == 0); 
 
-        //关闭句柄
+        /*关闭句柄*/
         _findclose(fileHandle);
         return ret;
     }
@@ -128,13 +128,14 @@ namespace aigc
         if (access(path.c_str(), 0) == 0)
             return true;
 
-        //先递归创建前面的目录
         std::string tmppath = StringHelper::Replace(path, "\\", "/");
 
+        
+        //先递归创建前面的目录
         //将‘//’的分隔符改成‘/'
         tmppath = StringHelper::Replace(path, "//", "/");
         
-        //最后一个符号如果是'/'要去掉，不然下面的步骤会出问题
+        /*最后一个符号如果是'/'要去掉，不然下面的步骤会出问题*/
         if (tmppath[tmppath.size() - 1] == '/')
             tmppath = tmppath.substr(0, tmppath.size() - 1);
 
@@ -156,7 +157,7 @@ namespace aigc
         if (access(path.c_str(), 0) != 0)
             return true;
 
-        //文件句柄和文件信息
+        /*文件句柄和文件信息*/
         long fileHandle = 0;
         struct _finddata_t fileinfo;
         std::string tmpPath;
@@ -166,12 +167,12 @@ namespace aigc
         {
             do
             {
-                //判断是否为子目录
+                /*判断是否为子目录*/
                 if ((fileinfo.attrib & _A_SUBDIR))
                 {
                     if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0)
                     {
-                        //递归删除
+                        /*递归删除*/
                         Remove(tmpPath.assign(path).append("/").append(fileinfo.name));
                     }
                 }
@@ -182,7 +183,7 @@ namespace aigc
 
             } while (_findnext(fileHandle, &fileinfo) == 0);
 
-            //关闭句柄
+            /*关闭句柄*/
             _findclose(fileHandle);
         }
         return rmdir(path.c_str()) == 0;
@@ -218,6 +219,8 @@ namespace aigc
     {
         char buffer[1024];
         char* ret = getcwd(buffer, 1024);
+        if (ret == NULL)
+            return "";
         return std::string(ret);
     }
 
@@ -268,31 +271,32 @@ namespace aigc
 
 }
 
-// int main()
-// {
-//     std::string ret = aigc::PathHelper::GetWorkPath();
-//     std::string name = "C:\\favor\\my\\test.json";
-//     ret = aigc::PathHelper::GetDirName(name);
-//     ret = aigc::PathHelper::GetFileName(name);
-//     ret = aigc::PathHelper::GetFileNameWithoutExt(name);
-//     ret = aigc::PathHelper::GetFielExt(name);
+/*
+int main()
+{
+    std::string ret = aigc::PathHelper::GetWorkPath();
+    std::string name = "C:\\favor\\my\\test.json";
+    ret = aigc::PathHelper::GetDirName(name);
+    ret = aigc::PathHelper::GetFileName(name);
+    ret = aigc::PathHelper::GetFileNameWithoutExt(name);
+    ret = aigc::PathHelper::GetFielExt(name);
 
-//     std::string name2 = "../my/test.json";
-//     bool flag = aigc::PathHelper::IsAbsolutePath(name2);
-//     ret = aigc::PathHelper::GetFullPath(name2);
+    std::string name2 = "../my/test.json";
+    bool flag = aigc::PathHelper::IsAbsolutePath(name2);
+    ret = aigc::PathHelper::GetFullPath(name2);
 
-//     std::string name3 = "D:/code/Common/AIGPY/";
-//     std::string name4 = "D:/code/Common/AIGPY2/";
-//     std::vector<std::string> files = aigc::PathHelper::GetAllFiles(name3);
-//     for (size_t i = 0; i < files.size(); i++)
-//     {
-//         std::cout<< files[i] << std::endl;
-//     }
-//     std::cout<< files.size() << std::endl;
+    std::string name3 = "D:/code/Common/AIGPY/";
+    std::string name4 = "D:/code/Common/AIGPY2/";
+    std::vector<std::string> files = aigc::PathHelper::GetAllFiles(name3);
+    for (size_t i = 0; i < files.size(); i++)
+    {
+        std::cout<< files[i] << std::endl;
+    }
+    std::cout<< files.size() << std::endl;
 
-//     long size = aigc::PathHelper::GetSize(name3);
-//     flag = aigc::PathHelper::Copy(name3, name4);
-//     flag = aigc::PathHelper::Remove(name4);
-
-//     return 0;
-// }
+    long size = aigc::PathHelper::GetSize(name3);
+    flag = aigc::PathHelper::Copy(name3, name4);
+    flag = aigc::PathHelper::Remove(name4);
+    return 0;
+}
+*/

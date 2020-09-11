@@ -690,6 +690,7 @@ private:
 
 namespace aigc
 {
+    
 HttpHelper::Result HttpHelper::Get(const std::string& url)
 {
     HttpHelper::Result result;
@@ -731,4 +732,10 @@ HttpHelper::Result HttpHelper::Post(const std::string& url, const std::map<std::
     }
     return result;
 }
+}
+
+int main()
+{
+    aigc::HttpHelper::Result ret = aigc::HttpHelper::Get("www.baidu.com");
+    return 0;
 }
