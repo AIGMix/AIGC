@@ -10,7 +10,7 @@ namespace aigc
         url += author + '/';
         url += repository + "/releases/latest";
 
-        HttpHelper::Result result = HttpHelper::Get(url);
+        HttpHelper::Response result = HttpHelper::Get(url);
         if (result.success == false)
             return "";
 
@@ -21,8 +21,8 @@ namespace aigc
     }
 }
 
-// int main()
-// {
-//     std::string ver = aigc::GithubHelper::GetLatestVersion("yaronzz","Tidal-Media-Downloader");
-//     return 0;
-// }
+ //int main()
+ //{
+ //    std::string ver = aigc::GithubHelper::GetLatestVersion("yaronzz","Tidal-Media-Downloader");
+ //    return 0;
+ //}

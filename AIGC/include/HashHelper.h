@@ -100,6 +100,11 @@ private:
      */
     bool CreatNode(int hash, std::string key, TVALUE value, Node** node);
 
+    /**
+     * @brief 获取节点
+     * @param key 关键字
+     * @param node 节点
+     */
     bool GetNode(std::string key, Node** node);
 
     /**

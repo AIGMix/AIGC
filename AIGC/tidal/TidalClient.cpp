@@ -23,7 +23,7 @@ LoginKey TidalClient::Login(string userName, string password, string token)
         "Content-Type: application/x-www-form-urlencoded",
     };
 
-    HttpHelper::Result result = HttpHelper::Post(G_BASE_URL + "login/username", parameters, headers);
+    HttpHelper::Response result = HttpHelper::Post(G_BASE_URL + "login/username", parameters, headers);
 
     LoginKey ret;
     ret.success = result.success;
@@ -46,7 +46,7 @@ LoginKey TidalClient::Login(string accessToken)
         "authorization:Bearer " + accessToken,
     };
 
-    HttpHelper::Result result = HttpHelper::Post("https://api.tidal.com/v1/sessions", {}, headers);
+    HttpHelper::Response result = HttpHelper::Post("https://api.tidal.com/v1/sessions", {}, headers);
 
     LoginKey ret;
     ret.success = result.success;
@@ -78,7 +78,7 @@ static T& Request(LoginKey key, string path, T& ret, map<string, string> paras =
     else
         headers.push_back("X-Tidal-SessionId: " + key.sessionID);
 
-    HttpHelper::Result result = HttpHelper::Post(G_BASE_URL + path, paras, headers);
+    HttpHelper::Response result = HttpHelper::Post(G_BASE_URL + path, paras, headers);
 
     return ret;
 }

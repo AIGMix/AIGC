@@ -8,5 +8,5 @@ class Threadhelper
 {
 public:
 
-}
+};
 }

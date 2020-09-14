@@ -110,6 +110,12 @@ public:
      */
     static std::vector<std::string> Split(const std::string &str, char seperator);
 
+    /**
+     * @brief 替换子串
+     * @param str 输入字符串
+     * @param fromStr 要替换的子串
+     * @param toStr 新的子串
+     */
     static std::string Replace(const std::string &str, const std::string &fromStr, const std::string &toStr);
 };
 }

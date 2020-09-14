@@ -40,9 +40,11 @@
     <ClInclude Include="..\include\TypeHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\CRCHelper.cpp" />
     <ClCompile Include="..\src\FileHelper.cpp" />
+    <ClCompile Include="..\src\GithubHelper.cpp" />
     <ClCompile Include="..\src\HashHelper.cpp" />
-    <ClCompile Include="..\src\HttpHelper2.cpp" />
+    <ClCompile Include="..\src\HttpHelper.cpp" />
     <ClCompile Include="..\src\JsonHelper.cpp" />
     <ClCompile Include="..\src\MathHelper.cpp" />
     <ClCompile Include="..\src\PathHelper.cpp" />

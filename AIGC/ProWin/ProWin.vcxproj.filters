@@ -107,10 +107,16 @@
     <ClCompile Include="..\src\SystemHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\HttpHelper2.cpp">
+    <ClCompile Include="..\src\SocketHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SocketHelper.cpp">
+    <ClCompile Include="..\src\HttpHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CRCHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GithubHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

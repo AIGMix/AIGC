@@ -26,6 +26,7 @@ public:
         std::string dataStr;
         std::vector<char> dataBytes;
         std::vector<std::string> headers;
+        std::vector<std::string> cookies;
     } Response;
 
     /**
@@ -64,20 +65,25 @@ public:
                                 const std::map<std::string, std::string> &parameters,
                                 const std::vector<std::string> &headers = {});
 
-
+    /**
+     * @brief Get操作
+     * @param url 链接
+     * @param parameters 参数集合
+     * @param headers 头
+     */
     static Response Get(const std::string &url,
-                        const std::map<std::string, std::string> &parameters,
-                        const std::vector<std::string> &headers = {})
-    {
-        return GetResponse(url, "GET", parameters, headers);
-    }
+                        const std::map<std::string, std::string> &parameters = {},
+                        const std::vector<std::string> &headers = {});
 
+    /**
+     * @brief Post操作
+     * @param url 链接
+     * @param parameters 参数集合
+     * @param headers 头
+     */
     static Response Post(const std::string &url,
-                         const std::map<std::string, std::string> &parameters,
-                         const std::vector<std::string> &headers = {})
-    {
-        return GetResponse(url, "POST", parameters, headers);
-    }
+                         const std::map<std::string, std::string> &parameters = {},
+                         const std::vector<std::string> &headers = {});
 };
 }
 
