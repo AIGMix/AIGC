@@ -290,7 +290,7 @@ namespace aigc
 
         //连接
         SocketHelper socket(SocketHelper::Protocol::IPv4);
-        if (socket.Connect(url.domain, url.port) == false)
+        if (socket.Connect(url.domain, std::stoi(url.port)) == false)
         {
             result.success = false;
             result.status = socket.GetLastError(result.errMessage);
@@ -338,7 +338,7 @@ namespace aigc
             int size = socket.Receive(buffer, bufferSize);
             if (size <= 0)
                 break;
-
+            
             data.insert(data.end(), buffer, buffer + size);
 
             //解析头

@@ -108,33 +108,57 @@ bool SocketHelper::Connect(const struct sockaddr *address, int addressSize)
     return true;
 }
 
-bool SocketHelper::Connect(std::string ip, int port)
+bool SocketHelper::Connect(std::string str, int port, bool isDomain)
 {
     //连接
-    struct sockaddr_in serverAddress;
-    serverAddress.sin_family = AF_INET;
-    serverAddress.sin_addr.s_addr = inet_addr(ip.c_str());
-    serverAddress.sin_port = htons(port);
+    if (isDomain)
+    {
+        std::string ip = str;
+        struct sockaddr_in serverAddress;
+        serverAddress.sin_family = AF_INET;
+        serverAddress.sin_addr.s_addr = inet_addr(ip.c_str());
+        serverAddress.sin_port = htons(port);
+        return Connect((struct sockaddr *)&serverAddress, sizeof(serverAddress));
+    }
+    else 
+    {
+        std::string domain = str;
+        addrinfo hints = {};
+        hints.ai_family = GetAddressFamily(m_protocal);
+        hints.ai_socktype = SOCK_STREAM;
 
-    return Connect((struct sockaddr *)&serverAddress, sizeof(serverAddress));
+        addrinfo *info;
+        if (getaddrinfo(domain.c_str(), std::to_string(port).c_str(), &hints, &info) != 0)
+        {
+            m_lastError = ERROR;
+            m_lastErrorMessage = "Failed to get address info of " + domain;
+            return false;
+        }
+        std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> addressInfo(info, freeaddrinfo);
+
+        return Connect(addressInfo->ai_addr, (int)addressInfo->ai_addrlen);
+    }
 }
 
-bool SocketHelper::Connect(std::string domain, std::string port)
+bool SocketHelper::Bind(int port)
 {
-    addrinfo hints = {};
-    hints.ai_family = GetAddressFamily(m_protocal);
-    hints.ai_socktype = SOCK_STREAM;
+    if (m_socket == s_invalidSocket)
+        return -1;
 
-    addrinfo *info;
-    if (getaddrinfo(domain.c_str(), port.c_str(), &hints, &info) != 0)
-    {
+    sockaddr_in saddr;
+    saddr.sin_family = GetAddressFamily(m_protocal);
+    saddr.sin_port = htons(port);     
+    saddr.sin_addr.s_addr = htons(0);
+
+    if (::bind(m_socket, (sockaddr *)&saddr, sizeof(saddr)) != 0)
+    { 
         m_lastError = ERROR;
-        m_lastErrorMessage = "Failed to get address info of " + domain;
+        m_lastErrorMessage = "Bind port " + std::to_string(port) + " failed!";
         return false;
     }
-    std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> addressInfo(info, freeaddrinfo);
 
-    return Connect(addressInfo->ai_addr, (int)addressInfo->ai_addrlen);
+    listen(m_socket, 20);
+    return true;
 }
 
 int SocketHelper::Send(const char *buffer, int length, int flags)

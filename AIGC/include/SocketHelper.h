@@ -36,17 +36,10 @@ public:
 
     /**
      * @brief 连接
-     * @param ip 地址
+     * @param str ip地址或者域名
      * @param port 端口
      */
-    bool Connect(std::string ip, int port);
-
-    /**
-     * @brief 连接
-     * @param domain 域名
-     * @param port 端口
-     */
-    bool Connect(std::string domain, std::string port);
+    bool Connect(std::string str, int port = 80, bool isDomain = false);
 
     /**
      * @brief 连接
@@ -59,6 +52,12 @@ public:
      * @brief 关闭连接
      */
     void CloseConnect();
+
+    /**
+     * @brief 绑定与监听
+     * @param port 端口
+     */
+    bool Bind(int port);
 
     /**
      * @brief 发送数据

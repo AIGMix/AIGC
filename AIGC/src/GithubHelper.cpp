@@ -21,8 +21,8 @@ namespace aigc
     }
 }
 
- //int main()
- //{
- //    std::string ver = aigc::GithubHelper::GetLatestVersion("yaronzz","Tidal-Media-Downloader");
- //    return 0;
- //}
+//  int main()
+//  {
+//     std::string ver = aigc::GithubHelper::GetLatestVersion("yaronzz","Tidal-Media-Downloader");
+//     return 0;
+//  }
