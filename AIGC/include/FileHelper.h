@@ -49,6 +49,15 @@ public:
     static bool Write(const std::string& filePath, const std::string& content, bool append = false);
 
     /**
+     * @brief 写文件
+     * @param filePath 文件路径
+     * @param lines 行集合
+     * @param append 追加
+     * @return True 成功
+     */
+    static bool WriteLines(const std::string &filePath, std::vector<std::string> &lines, bool append = false);
+
+    /**
      * @brief 读文件
      * @param filePath 文件路径
      * @return 内容

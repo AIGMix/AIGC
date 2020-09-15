@@ -80,6 +80,21 @@ bool FileHelper::Write(const std::string &filePath, const std::string &content, 
     return true;
 }
 
+bool FileHelper::WriteLines(const std::string &filePath, std::vector<std::string> &lines, bool append = false)
+{
+    std::string mode = append ? "a+" : "w+";
+    FILE *fp = fopen(filePath.c_str(), mode.c_str());
+    if (fp == NULL)
+        return false;
+
+    for (int i = 0; i < lines.size(); i++)
+    {
+        fwrite((lines[i] + '\n').c_str(), 1, lines[i].length() + 1, fp);
+    }
+    fclose(fp);
+    return true;
+}
+
 std::string FileHelper::Read(const std::string &filePath)
 {
     FILE *fp = fopen(filePath.c_str(), "r");

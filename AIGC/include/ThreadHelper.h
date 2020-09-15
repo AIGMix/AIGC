@@ -4,9 +4,9 @@
 
 namespace aigc
 {
-class Threadhelper
+class ThreadHelper
 {
 public:
-
+    
 };
 }
