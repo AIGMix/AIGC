@@ -35,7 +35,9 @@
     <ClInclude Include="..\include\SocketHelper.h" />
     <ClInclude Include="..\include\StringHelper.h" />
     <ClInclude Include="..\include\SystemHelper.h" />
+    <ClInclude Include="..\include\TaskHelper.h" />
     <ClInclude Include="..\include\ThreadHelper.h" />
+    <ClInclude Include="..\include\ThreadPoolHepler.h" />
     <ClInclude Include="..\include\TimeHelper.h" />
     <ClInclude Include="..\include\TypeHelper.h" />
   </ItemGroup>
@@ -49,10 +51,12 @@
     <ClCompile Include="..\src\MathHelper.cpp" />
     <ClCompile Include="..\src\PathHelper.cpp" />
     <ClCompile Include="..\src\PropertyHelper.cpp" />
+    <ClCompile Include="..\src\QueueHelper.cpp" />
     <ClCompile Include="..\src\RandomHelper.cpp" />
     <ClCompile Include="..\src\SocketHelper.cpp" />
     <ClCompile Include="..\src\StringHelper.cpp" />
     <ClCompile Include="..\src\SystemHelper.cpp" />
+    <ClCompile Include="..\src\ThreadPoolHelper.cpp" />
     <ClCompile Include="..\src\TimeHelper.cpp" />
     <ClCompile Include="..\src\TypeHelper.cpp" />
   </ItemGroup>
@@ -78,7 +82,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>

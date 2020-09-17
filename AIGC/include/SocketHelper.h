@@ -36,10 +36,10 @@ public:
 
     /**
      * @brief 连接
-     * @param str ip地址或者域名
+     * @param host ip地址或者host
      * @param port 端口
      */
-    bool Connect(std::string str, int port = 80, bool isDomain = false);
+    bool Connect(std::string host, int port = 80);
 
     /**
      * @brief 连接
@@ -56,8 +56,11 @@ public:
     /**
      * @brief 绑定与监听
      * @param port 端口
+     * @param host ip地址或者host
      */
-    bool Bind(int port);
+    bool Bind(int port, std::string host = "");
+
+    bool CreatEpoll();
 
     /**
      * @brief 发送数据
@@ -85,11 +88,12 @@ public:
     int GetLastError(std::string& errorMessage);
 
 private:
-    Protocol m_protocal;
-    SOCKET_AIGC m_socket;
 
-    int m_lastError;
-    std::string m_lastErrorMessage;
+    Protocol m_protocal;    //协议IPv4/IPv6
+    SOCKET_AIGC m_socket;   //套接字
+
+    int m_lastError;                //最后的错误
+    std::string m_lastErrorMessage; //最后的错误信息
 };
 
 

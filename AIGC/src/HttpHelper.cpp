@@ -415,8 +415,8 @@ namespace aigc
     }
 }
 
-//int main()
-//{
+// int main()
+// {
 //    aigc::HttpHelper::Response ret = aigc::HttpHelper::Get("https://www.baidu.com");
 //    return 0;
-//}
+// }

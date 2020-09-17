@@ -16,6 +16,20 @@ bool StringHelper::IsEmpty(const std::string &str)
     return true;
 }
 
+bool StringHelper::IsInclude(const std::string &str, const std::string &substr)
+{
+    if (str.find(substr) == std::string::npos)
+        return false;
+    return true;
+}
+
+bool StringHelper::IsInclude(const std::string &str, char subchar)
+{
+    if (str.find(subchar) == std::string::npos)
+        return false;
+    return true;
+}
+
 std::string StringHelper::TrimLeft(const std::string &str, const std::string remove)
 {
     std::string newStr = str;
@@ -146,6 +160,32 @@ bool StringHelper::IsNumeric(const std::string &str)
     return true;
 }
 
+bool StringHelper::IsIP(const std::string &str)
+{
+    if (str.length() <= 0)
+        return false;
+
+    std::vector<std::string> lines = Split(Trim(str), '.');
+    if (lines.size() != 4)
+        return false;
+    
+    std::string flag = "0123456789";
+    for (int i = 0; i < lines.size(); i++)
+    {
+        for (int j = 0; j < lines[i].length(); j++)
+        {
+            if (!IsInclude(flag, lines[i][j]))
+                return false;
+        }
+
+        int temp = atoi(lines[i].c_str());
+        if (temp < 0 || temp > 255)
+            return false;
+    }
+
+    return true;
+}
+
 std::string StringHelper::ToLower(const std::string &str)
 {
     std::string newStr = str;
@@ -252,3 +292,10 @@ std::string StringHelper::Replace(const std::string &str, const std::string &fro
 }
 
 }
+
+
+// int main()
+// {
+//     bool flag = aigc::StringHelper::IsIP("127.0. 0.1");
+//     return 0;
+// }

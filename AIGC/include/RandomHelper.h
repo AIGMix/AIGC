@@ -26,6 +26,11 @@ public:
      */
     static std::string GetString(int length, bool haveNumber = true, bool haveSymbol = true, bool uppercase = true, bool lowercase = true);
 
+    /**
+     * @brief 获取唯一码
+     */
+    static std::string GetUUID();
+
 };
 
 }

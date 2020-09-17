@@ -72,6 +72,12 @@
     <ClInclude Include="..\include\SocketHelper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ThreadPoolHepler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TaskHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\JsonHelper.cpp">
@@ -117,6 +123,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GithubHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\QueueHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ThreadPoolHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

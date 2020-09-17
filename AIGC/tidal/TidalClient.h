@@ -12,11 +12,11 @@ public:
     static TidalItems GetAlbumItems(LoginKey key, string id);
 
     static TidalTrack GetTrack(LoginKey key, string id);
-    static StreamUrl GetTrackStreamUrl(LoginKey key, string id, AudioQuality quality = eAUDIO_QUALITY_High);
+    static StreamUrl GetTrackStreamUrl(LoginKey key, string id, AudioQuality quality = AudioQuality::High);
 
     static TidalVideo GetVideo(LoginKey key, string id);
     static list<VideoStreamUrl> GetVideStreamUrls(LoginKey key, string id);
-    static VideoStreamUrl GetVideStreamUrl(LoginKey key, string id, VideoQuality resolution = eVIDEO_QUALITY_720);
+    static VideoStreamUrl GetVideStreamUrl(LoginKey key, string id, VideoQuality resolution = VideoQuality::e720);
 
     static TidalPlaylist GetPlaylist(LoginKey key, string id);
     static TidalItems GetPlaylistItems(LoginKey key, string id);
@@ -24,6 +24,6 @@ public:
     static TidalArtist GetArtist(LoginKey key, string id, bool containEPSingle = true);
 
     static TidalType ParseUrl(string sUrl, string& id);
-    static SearchResult Search(LoginKey key, string text, int limit = 10, TidalType type = eTIDAL_TYPE_NONE);
+    static SearchResult Search(LoginKey key, string text, int limit = 10, TidalType type = TidalType::None);
 };
 

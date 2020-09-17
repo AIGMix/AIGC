@@ -80,7 +80,7 @@ bool FileHelper::Write(const std::string &filePath, const std::string &content, 
     return true;
 }
 
-bool FileHelper::WriteLines(const std::string &filePath, std::vector<std::string> &lines, bool append = false)
+bool FileHelper::WriteLines(const std::string &filePath, std::vector<std::string> &lines, bool append)
 {
     std::string mode = append ? "a+" : "w+";
     FILE *fp = fopen(filePath.c_str(), mode.c_str());

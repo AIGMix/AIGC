@@ -1,29 +1,29 @@
 #pragma once
 
-typedef enum AudioQualityEnum
+enum class AudioQuality
 {
-    eAUDIO_QUALITY_Normal,
-    eAUDIO_QUALITY_High,
-    eAUDIO_QUALITY_HiFi,
-    eAUDIO_QUALITY_Master,
-} AudioQuality;
+    Normal,
+    High,
+    HiFi,
+    Master,
+};
 
-typedef enum VideoQualityEnum
+enum class VideoQuality
 {
-    eVIDEO_QUALITY_240 = 240,
-    eVIDEO_QUALITY_360 = 360,
-    eVIDEO_QUALITY_480 = 480,
-    eVIDEO_QUALITY_720 = 720,
-    eVIDEO_QUALITY_1080 = 1080,
-} VideoQuality;
+    e240 = 240,
+    e360 = 360,
+    e480 = 480,
+    e720 = 720,
+    e1080 = 1080,
+};
 
-typedef enum TidalTypeEnum
+enum class TidalType
 {
-    eTIDAL_TYPE_ALBUM,
-    eTIDAL_TYPE_ARTIST,
-    eTIDAL_TYPE_PLAYLIST,
-    eTIDAL_TYPE_TRACK,
-    eTIDAL_TYPE_VIDEO,
-    eTIDAL_TYPE_SEARCH,
-    eTIDAL_TYPE_NONE,
-} TidalType;
+    Album,
+    Artist,
+    Playlist,
+    Track,
+    Video,
+    Search,
+    None,
+};

@@ -37,12 +37,12 @@ namespace aigc
     }
 }
 
-int main()
-{
-    SYSTEM_INFO info;
-    GetSystemInfo(&info);
-    int tmp = info.dwNumberOfProcessors;
+// int main()
+// {
+//     SYSTEM_INFO info;
+//     GetSystemInfo(&info);
+//     int tmp = info.dwNumberOfProcessors;
 
-    std::string ret = aigc::SystemHelper::GetSystemName();
-    return 0;
-}
+//     std::string ret = aigc::SystemHelper::GetSystemName();
+//     return 0;
+// }

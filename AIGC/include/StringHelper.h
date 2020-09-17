@@ -10,10 +10,74 @@ public:
     /**
      * @brief 是否为空白字符串(只有空格和\n)
      * @param str 输入字符串
-     * @return 是/否
      */
     static bool IsEmpty(const std::string &str);
 
+    /**
+     * @brief 字符串是否相同
+     * @param str1 输入字符串1
+     * @param str2 输入字符串2
+     * @param ignoreUpLow 忽略大小写
+     */
+    static bool IsSame(const std::string &str1, const std::string &str2, bool ignoreUpLow = false);
+
+    /**
+     * @brief 是否包含子串
+     * @param str 输入字符串
+     * @param substr 子串
+     */
+    static bool IsInclude(const std::string &str, const std::string &substr);
+    static bool IsInclude(const std::string &str, char subchar);
+
+    /**
+     * @brief 是否为英文
+     * @param str 输入字符串
+     */
+    static bool IsEnglish(const std::string &str);
+
+    /**
+     * @brief 是否为中文
+     * @param str 输入字符串
+     */
+    static bool IsChinese(const std::string &str);
+
+    /**
+     * @brief 是否为数字
+     * @param str 输入字符串
+     */
+    static bool IsNumeric(const std::string &str);
+
+    /**
+     * @brief 是否为IP
+     * @param str 输入字符串
+     */
+    static bool IsIP(const std::string &str);
+
+    /**
+     * @brief 是否为邮箱
+     * @param str 输入字符串
+     */
+    static bool IsEmail(const std::string &str);
+
+    /**
+     * @brief 是否为手机号
+     * @param str 输入字符串
+     */
+    static bool IsPhoneNumber(const std::string &str);
+
+    /**
+     * @brief 是否为链接
+     * @param str 输入字符串
+     */
+    static bool IsUrl(const std::string &str);
+
+    /**
+     * @brief 是否为身份证号码
+     * @param str 输入字符串
+     */
+    static bool IsIdentifyCard(const std::string &str);
+
+public: //去除空格、补位、大小写
     /**
      * @brief 去除头部字符
      * @param str 输入字符串
@@ -52,27 +116,6 @@ public:
     static std::string ShiftRight(const std::string &str, int length, const char add = '0');
 
     /**
-     * @brief 是否为英文
-     * @param str 输入字符串
-     * @return 真假
-     */
-    static bool IsEnglish(const std::string &str);
-
-    /**
-     * @brief 是否为中文
-     * @param str 输入字符串
-     * @return 真假
-     */
-    static bool IsChinese(const std::string &str);
-
-    /**
-     * @brief 是否为数字
-     * @param str 输入字符串
-     * @return 真假
-     */
-    static bool IsNumeric(const std::string &str);
-
-    /**
      * @brief 转小写
      * @param str 输入字符串
      */
@@ -84,15 +127,7 @@ public:
      */
     static std::string ToUpper(const std::string &str);
 
-    /**
-     * @brief 字符串是否相同
-     * @param str1 输入字符串1
-     * @param str2 输入字符串2
-     * @param ignoreUpLow 忽略大小写
-     * @return 真假
-     */
-    static bool IsSame(const std::string &str1, const std::string &str2, bool ignoreUpLow = false);
-
+public: //字符串裁剪、替换、分割
     /**
      * @brief 获取子串
      * @param str 输入字符串
@@ -117,6 +152,47 @@ public:
      * @param toStr 新的子串
      */
     static std::string Replace(const std::string &str, const std::string &fromStr, const std::string &toStr);
+
+public: // 加密解密
+    enum class EncryptType
+    {
+        MD5,
+        AES,
+        DES,
+        RSA,
+        CRC16,
+        CRC32,
+        CRC64,
+    };
+
+    /**
+     * @brief 加密
+     * @param str 输入字符串
+     * @param key 密码
+     * @param type 加密类型
+     */
+    static std::string Encrypt(const std::string &str, const std::string &key, EncryptType type);
+
+    /**
+     * @brief 解密
+     * @param str 输入字符串
+     * @param key 密码
+     * @param type 加密类型
+     */
+    static std::string Decrypt(const std::string &str, const std::string &key, EncryptType type);
+
+public://简繁转换
+    /**
+     * @brief 转为简体中文
+     * @param str 输入字符串
+     */
+    static std::string ToChineseSimplified(std::string &str);
+
+    /**
+     * @brief 转为繁体中文
+     * @param str 输入字符串
+     */
+    static std::string ToChineseTraditional(std::string &str);
 };
 }
 

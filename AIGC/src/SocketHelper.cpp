@@ -1,4 +1,5 @@
 #include "SocketHelper.h"
+#include "StringHelper.h"
 #include <memory>
 
 #ifdef _WIN32
@@ -7,8 +8,8 @@
     #include <ws2tcpip.h>
     #define CloseSocket(s) closesocket(s)
     #define MSG_NOSIGNAL 0
-    #define ERROR WSAGetLastError()
-    #define EINTR WSAEINTR
+    #define AIG_SOCKET_ERROR WSAGetLastError()
+    #define SOCKET_EINTR WSAEINTR
     static SOCKET_AIGC s_invalidSocket = INVALID_SOCKET;
     bool Startup()
     {
@@ -31,19 +32,21 @@
 #else
     #include <sys/socket.h>
     #include <sys/time.h>
+    #include <sys/epoll.h>
     #include <arpa/inet.h>
     #include <unistd.h>
     #define CloseSocket(s) close(s)
-    #define ERROR errno
+    #define AIG_SOCKET_ERROR errno
     static SOCKET_AIGC s_invalidSocket = -1;
     bool Startup(){return true;}
     void CleanStartup(){}
 #endif
 
+
+
 namespace aigc
 {
 
-static bool g_haveStartup = false;
 
 SocketHelper::SocketHelper(SocketHelper::Protocol protocol)
 {
@@ -52,11 +55,7 @@ SocketHelper::SocketHelper(SocketHelper::Protocol protocol)
     m_lastError = 0;
     m_lastErrorMessage = "";
 
-    if (g_haveStartup == false)
-    {
-        if (Startup())
-            g_haveStartup = true;
-    }
+    Startup();
 }
 
 SocketHelper::~SocketHelper()
@@ -64,6 +63,8 @@ SocketHelper::~SocketHelper()
     if (m_socket != s_invalidSocket)
         CloseSocket(m_socket);
     m_socket = s_invalidSocket;
+
+    CleanStartup();
 }
 
 int SocketHelper::GetAddressFamily(Protocol protocol)
@@ -94,26 +95,25 @@ bool SocketHelper::Connect(const struct sockaddr *address, int addressSize)
         return false;
 
     int check = connect(m_socket, address, addressSize);
-    while (check == -1 && ERROR == EINTR)
+    while (check == -1 && AIG_SOCKET_ERROR == SOCKET_EINTR)
     {
         check = connect(m_socket, address, addressSize);
     }
 
     if (check == -1)
     {
-        m_lastError = ERROR;
+        m_lastError = AIG_SOCKET_ERROR;
         m_lastErrorMessage = "Failed to connect!";
         return false;
     }
     return true;
 }
 
-bool SocketHelper::Connect(std::string str, int port, bool isDomain)
+bool SocketHelper::Connect(std::string host, int port)
 {
-    //连接
-    if (isDomain)
+    if (StringHelper::IsIP(host))
     {
-        std::string ip = str;
+        std::string ip = host;
         struct sockaddr_in serverAddress;
         serverAddress.sin_family = AF_INET;
         serverAddress.sin_addr.s_addr = inet_addr(ip.c_str());
@@ -122,7 +122,7 @@ bool SocketHelper::Connect(std::string str, int port, bool isDomain)
     }
     else 
     {
-        std::string domain = str;
+        std::string domain = host;
         addrinfo hints = {};
         hints.ai_family = GetAddressFamily(m_protocal);
         hints.ai_socktype = SOCK_STREAM;
@@ -130,7 +130,7 @@ bool SocketHelper::Connect(std::string str, int port, bool isDomain)
         addrinfo *info;
         if (getaddrinfo(domain.c_str(), std::to_string(port).c_str(), &hints, &info) != 0)
         {
-            m_lastError = ERROR;
+            m_lastError = AIG_SOCKET_ERROR;
             m_lastErrorMessage = "Failed to get address info of " + domain;
             return false;
         }
@@ -140,24 +140,43 @@ bool SocketHelper::Connect(std::string str, int port, bool isDomain)
     }
 }
 
-bool SocketHelper::Bind(int port)
+bool SocketHelper::Bind(int port, std::string host)
 {
     if (m_socket == s_invalidSocket)
         return -1;
 
     sockaddr_in saddr;
     saddr.sin_family = GetAddressFamily(m_protocal);
-    saddr.sin_port = htons(port);     
-    saddr.sin_addr.s_addr = htons(0);
+    saddr.sin_port = htons(port);
+    saddr.sin_addr.s_addr = INADDR_ANY;
+
+    if (host.length() > 0)
+    {
+        struct in_addr addr;
+        struct hostent *he = gethostbyname(host.c_str());
+        if (he && he->h_addrtype == AF_INET)
+            saddr.sin_addr = *reinterpret_cast<struct in_addr *>(he->h_addr);
+        else
+        {
+            m_lastError = AIG_SOCKET_ERROR;
+            m_lastErrorMessage = "Bind port " + std::to_string(port) + " failed in 'gethostbyname'!";
+            return false;
+        }
+    }
 
     if (::bind(m_socket, (sockaddr *)&saddr, sizeof(saddr)) != 0)
-    { 
-        m_lastError = ERROR;
+    {
+        m_lastError = AIG_SOCKET_ERROR;
         m_lastErrorMessage = "Bind port " + std::to_string(port) + " failed!";
         return false;
     }
 
     listen(m_socket, 20);
+    return true;
+}
+
+bool SocketHelper::CreatEpoll()
+{
     return true;
 }
 
@@ -167,14 +186,14 @@ int SocketHelper::Send(const char *buffer, int length, int flags)
         return -1;
 
     int result = send(m_socket, buffer, length, flags);
-    while (result == -1 && ERROR == EINTR)
+    while (result == -1 && AIG_SOCKET_ERROR == SOCKET_EINTR)
     {
         result = send(m_socket, buffer, length, flags);
     }
 
     if (result == -1)
     {
-        m_lastError = ERROR;
+        m_lastError = AIG_SOCKET_ERROR;
         m_lastErrorMessage = "Failed to send!";
         return false;
     }
@@ -187,14 +206,14 @@ int SocketHelper::Receive(char *buffer, size_t length, int flags)
         return -1;
 
     int result = recv(m_socket, buffer, length, flags);
-    while (result == -1 && ERROR == EINTR)
+    while (result == -1 && AIG_SOCKET_ERROR == SOCKET_EINTR)
     {
         result = send(m_socket, buffer, length, flags);
     }
 
     if (result == -1)
     {
-        m_lastError = ERROR;
+        m_lastError = AIG_SOCKET_ERROR;
         m_lastErrorMessage = "Failed to receive!";
         return false;
     }

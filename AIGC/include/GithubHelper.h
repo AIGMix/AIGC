@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <iostream>
+#include <functional>
 
 namespace aigc
 {
@@ -9,6 +10,14 @@ namespace aigc
 class GithubHelper
 {
 public:
+    /**
+     * @brief 下载进度回调
+     * @param totalSize 文件字节数
+     * @param currentSize 已下载字节数
+     * @return bool Flase则终止下载
+     */
+    typedef std::function<bool(const int totalSize, const int currentSize)> UpdateDownloadNotify;
+
     /**
      * @brief 获取最新的版本号
      * @param author 作者
@@ -22,14 +31,16 @@ public:
      * @param author 作者
      * @param repository 仓库名
      * @param version 版本号
-     * @param fileName release上的文件
+     * @param onlineFileName release上的文件
      * @param savePath 保存的路径名
+     * @param updateCallBack 下载进度回调
      */
     static bool DownloadFile(const std::string &author,
                              const std::string &repository,
                              const std::string &version,
-                             const std::string &fileName,
-                             const std::string &savePath);
+                             const std::string &onlineFileName,
+                             const std::string &savePath,
+                             UpdateDownloadNotify updateCallBack = NULL);
 };
 
 } 
