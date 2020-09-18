@@ -130,6 +130,18 @@ std::string TimeHelper::CurDate(std::string sep)
     return year + sep + month + sep + day;
 }
 
+std::string TimeHelper::CurDateTime(std::string sep = "-", std::string timeSep = ":")
+{
+    AIGCTime time = GetAIGTime();
+    std::string year = StringHelper::ShiftLeft(std::to_string(time.Year), 4, '0');
+    std::string month = StringHelper::ShiftLeft(std::to_string(time.Month), 2, '0');
+    std::string day = StringHelper::ShiftLeft(std::to_string(time.Day), 2, '0');
+    std::string hour = StringHelper::ShiftLeft(std::to_string(time.Hour), 2, '0');
+    std::string minute = StringHelper::ShiftLeft(std::to_string(time.Minute), 2, '0');
+    std::string second = StringHelper::ShiftLeft(std::to_string(time.Second), 2, '0');
+    return year + sep + month + sep + day + " " + hour + timeSep + minute + timeSep + second;
+}
+
 bool TimeHelper::IsLeapYear(int year)
 {
     //四年一闰，百年不闰，四百年再闰

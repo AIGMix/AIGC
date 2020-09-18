@@ -45,9 +45,17 @@ public:
     /**
      * @brief 获取当前日期
      * @param sep 分隔符
-     * @return 年/月/日
+     * @return 年-月-日
      */
-    static std::string CurDate(std::string sep = "/");
+    static std::string CurDate(std::string sep = "-");
+
+    /**
+     * @brief 获取当前日期时间
+     * @param sep 分隔符
+     * @param timeSep 分隔符
+     * @return 年-月-日 时:分:秒
+     */
+    static std::string CurDateTime(std::string sep = "-", std::string timeSep = ":");
 
     /**
      * @brief 判断是否为闰年

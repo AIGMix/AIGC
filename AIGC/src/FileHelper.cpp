@@ -123,4 +123,37 @@ std::vector<std::string> FileHelper::ReadLines(const std::string &filePath)
     return ret;
 }
 
+std::string FileHelper::ReadFileLastLine(const std::string &filePath)
+{
+    // TODO
+    // FILE *fp = fopen(filePath.c_str(), "r");
+    // if (fp == NULL)
+    //     return "";
+
+    // int offset = -1;
+    // fseek(fp, offset, SEEK_END);
+
+    // char ch = '#';
+    // while(ch != '\n')
+    // {
+    //     offset--;
+    //     fseek(fp, offset, SEEK_END);
+    //     ch = fgetc(fp);
+    // }
+
+    // int len;
+    // char buff[1024];
+    // std::string ret = "";
+    // while (1)
+    // {
+    //     len = fread(buff, 1, 1024, fp);
+    //     ret += buff;
+    //     if (feof(fp))
+    //         break;
+    // }
+    // fclose(fp);
+
+    // return ret;
+}
+
 }

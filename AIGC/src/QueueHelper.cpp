@@ -56,4 +56,19 @@ namespace aigc
 
 }
 
+#include "TaskHelper.h"
+void TaskFunc(aigc::TaskData data)
+{
 
+}
+
+int main()
+{
+    aigc::QueueHelper<aigc::Task> queue(10);
+    aigc::Task tt;
+    tt.work = TaskFunc;
+    queue.Add(tt);
+    queue.Get(tt);
+    queue.Stop();
+    return 0;
+}

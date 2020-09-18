@@ -70,6 +70,12 @@ public:
      * @return 内容行数组
      */
     static std::vector<std::string> ReadLines(const std::string &filePath);
+
+    /**
+     * @brief 获取文件最后一行
+     * @param filePath 文件路径
+     */
+    static std::string ReadFileLastLine(const std::string &filePath);
 };
 
 } 
