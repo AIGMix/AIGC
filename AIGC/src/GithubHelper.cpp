@@ -16,8 +16,9 @@ namespace aigc
 
         std::vector<std::string> names;
         names.push_back("tag_name");
-        std::string version = JsonHelper::GetValue(result.dataStr, names);
-        return version;
+        // std::string version = JsonHelper::GetValue(result.dataStr, names);
+        // return version;
+        return "";
     }
 }
 

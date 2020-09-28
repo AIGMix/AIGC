@@ -10,7 +10,6 @@ namespace aigc
     {
 
     public:
-
         bool Send(std::string toEmail, std::string title, std::string content);    
 
     private:

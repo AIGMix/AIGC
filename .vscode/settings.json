@@ -5,6 +5,8 @@
         "*.ls": "lua",
         "*.prl": "ini",
         "*.pri": "ini",
+        "*log*": "log",
+        "*.cpp": "cpp",
         "algorithm": "cpp",
         "atomic": "cpp",
         "compare": "cpp",
@@ -63,6 +65,11 @@
         "xmemory": "cpp",
         "xstddef": "cpp",
         "xtr1common": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "random": "cpp",
+        "sstream": "cpp",
+        "set": "cpp"
     }
 }

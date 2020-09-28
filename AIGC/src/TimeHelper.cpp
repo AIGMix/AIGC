@@ -130,7 +130,7 @@ std::string TimeHelper::CurDate(std::string sep)
     return year + sep + month + sep + day;
 }
 
-std::string TimeHelper::CurDateTime(std::string sep = "-", std::string timeSep = ":")
+std::string TimeHelper::CurDateTime(std::string sep, std::string timeSep)
 {
     AIGCTime time = GetAIGTime();
     std::string year = StringHelper::ShiftLeft(std::to_string(time.Year), 4, '0');

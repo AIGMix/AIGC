@@ -271,8 +271,7 @@ namespace aigc
 
 }
 
-/*
-int main()
+/*int main()
 {
     std::string ret = aigc::PathHelper::GetWorkPath();
     std::string name = "C:\\favor\\my\\test.json";

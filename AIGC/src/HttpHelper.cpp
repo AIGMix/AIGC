@@ -289,8 +289,8 @@ namespace aigc
         std::vector<uint8_t> body = std::vector<uint8_t>(inBody.begin(), inBody.end());
 
         //连接
-        SocketHelper socket(SocketHelper::Protocol::IPv4);
-        if (socket.Connect(url.domain, std::stoi(url.port)) == false)
+        SocketHelper socket(url.domain, std::stoi(url.port));
+        if (socket.Connect() == false)
         {
             result.success = false;
             result.status = socket.GetLastError(result.errMessage);
@@ -415,8 +415,8 @@ namespace aigc
     }
 }
 
-// int main()
-// {
-//    aigc::HttpHelper::Response ret = aigc::HttpHelper::Get("https://www.baidu.com");
-//    return 0;
-// }
+ //int main()
+ //{
+ //   aigc::HttpHelper::Response ret = aigc::HttpHelper::Get("https://www.baidu.com");
+ //   return 0;
+ //}

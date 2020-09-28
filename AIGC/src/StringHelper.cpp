@@ -291,6 +291,32 @@ std::string StringHelper::Replace(const std::string &str, const std::string &fro
     return ret;
 }
 
+std::string StringHelper::ToBinaryString(char ch)
+{
+    std::string ret = "";
+    unsigned char k = 0x80;
+    //1000 000 每次向右移动一位，每次取ch一位，从高到低
+    for (int i = 0; i < 8; i++, k >>= 1)
+    {
+        if (ch & k)
+            ret = ret + '1';
+        else
+            ret = ret + '0';
+    }
+    return ret;
+}
+
+std::string StringHelper::ToBinaryString(const std::string &str)
+{
+    std::string ret = "";
+    for (int i = 0; i < str.length(); i++)
+    {
+        char ch = str[i];
+        ret += ToBinaryString(ch);
+    }
+    return ret;
+}
+
 }
 
 

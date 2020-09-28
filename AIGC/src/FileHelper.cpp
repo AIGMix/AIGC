@@ -154,6 +154,7 @@ std::string FileHelper::ReadFileLastLine(const std::string &filePath)
     // fclose(fp);
 
     // return ret;
+    return "";
 }
 
 }

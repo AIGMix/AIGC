@@ -15,6 +15,7 @@
                 "-I${workspaceRoot}/AIGC/tidal",
                 "-std=c++11",
                 "-lws2_32",  //HttpHelper需要
+                
             ],
             "problemMatcher": {
                 "owner": "cpp",

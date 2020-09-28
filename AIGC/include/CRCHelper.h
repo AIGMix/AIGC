@@ -9,13 +9,20 @@ class CRCHelper
 {
 public:
     /**
-     * @brief 获取CRC检验码
+     * @brief 获取CRC16检验码
      * @param str 需要检验的数据串
      * @param length 数据串长度
      */
     unsigned int GetCRC16(unsigned char *str, int length);
+
+    /**
+     * @brief 获取CRC32检验码
+     * @param str 需要检验的数据串
+     * @param length 数据串长度
+     */
     unsigned int GetCRC32(unsigned char *str, int length);
-    unsigned int GetCRC64(unsigned char *str, int length);
 };
+
+
 
 }

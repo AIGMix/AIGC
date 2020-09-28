@@ -4,7 +4,7 @@
 
 namespace aigc
 {
-    class ServerHelper
+    class TCPServerHelper
     {
     public:
         bool Start(std::string host, std::string port);
