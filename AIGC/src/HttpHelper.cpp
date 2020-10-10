@@ -361,7 +361,7 @@ namespace aigc
                     {
                         if (receiveHeader.headers[i].find("Set-Cookie:") == std::string::npos)
                             continue;
-                        std::string cookie = StringHelper::Substring(receiveHeader.headers[i], "Set-Cookie:");
+                        std::string cookie = StringHelper::SubString(receiveHeader.headers[i], "Set-Cookie:");
                         receiveHeader.cookies.push_back(StringHelper::Trim(cookie));
                     }
                     

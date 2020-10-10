@@ -51,6 +51,16 @@ public:
     /**
      * @brief 写文件
      * @param filePath 文件路径
+     * @param content 内容
+     * @param length 内容长度
+     * @param append 追加
+     * @return True 成功
+     */
+    static bool WriteByte(const std::string &filePath, const char *content, int length, bool append = false);
+
+    /**
+     * @brief 写文件
+     * @param filePath 文件路径
      * @param lines 行集合
      * @param append 追加
      * @return True 成功
@@ -65,17 +75,20 @@ public:
     static std::string Read(const std::string &filePath);
 
     /**
+     * @brief 读文件
+     * @param filePath 文件路径
+     * @param length 内容长度
+     * @return 内容（需要调用free释放）
+     */
+    static char* ReadByte(const std::string &filePath, int& length);
+
+    /**
      * @brief 读文件所有行
      * @param filePath 文件路径
      * @return 内容行数组
      */
     static std::vector<std::string> ReadLines(const std::string &filePath);
 
-    /**
-     * @brief 获取文件最后一行
-     * @param filePath 文件路径
-     */
-    static std::string ReadFileLastLine(const std::string &filePath);
 };
 
 } 

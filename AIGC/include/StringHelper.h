@@ -151,7 +151,7 @@ namespace aigc
          * @param end 结束标志
          * @param needEnd 必须匹配结束标志
          */
-        static std::string Substring(const std::string &str, const std::string &start = "", const std::string &end = "", bool needEnd = false);
+        static std::string SubString(const std::string &str, const std::string &start = "", const std::string &end = "", bool needEnd = false);
 
         /**
          * @brief 分割字符串

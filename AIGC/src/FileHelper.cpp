@@ -80,6 +80,18 @@ bool FileHelper::Write(const std::string &filePath, const std::string &content, 
     return true;
 }
 
+bool FileHelper::WriteByte(const std::string &filePath, const char *content, int length, bool append)
+{
+    std::string mode = append ? "ab+" : "wb+";
+    FILE *fp = fopen(filePath.c_str(), mode.c_str());
+    if (fp == NULL)
+        return false;
+
+    fwrite(content, 1, length, fp);
+    fclose(fp);
+    return true;
+}
+
 bool FileHelper::WriteLines(const std::string &filePath, std::vector<std::string> &lines, bool append)
 {
     std::string mode = append ? "a+" : "w+";
@@ -116,45 +128,32 @@ std::string FileHelper::Read(const std::string &filePath)
     return ret;
 }
 
+char *FileHelper::ReadByte(const std::string &filePath, int &length)
+{
+    long size = GetSize(filePath);
+    if (size <= 0)
+        return NULL;
+    
+    FILE *fp = fopen(filePath.c_str(), "rb");
+    if (fp == NULL)
+        return NULL;
+
+    char* pbuff = (char*)malloc(size);
+    if (pbuff == NULL)
+    {
+        fclose(fp);
+        return NULL;
+    }
+
+    length = fread(pbuff, 1, size, fp);
+    fclose(fp);
+    return pbuff;
+}
+
 std::vector<std::string> FileHelper::ReadLines(const std::string &filePath)
 {
     std::string content = Read(filePath);
     std::vector<std::string> ret = StringHelper::Split(content, '\n');
     return ret;
 }
-
-std::string FileHelper::ReadFileLastLine(const std::string &filePath)
-{
-    // TODO
-    // FILE *fp = fopen(filePath.c_str(), "r");
-    // if (fp == NULL)
-    //     return "";
-
-    // int offset = -1;
-    // fseek(fp, offset, SEEK_END);
-
-    // char ch = '#';
-    // while(ch != '\n')
-    // {
-    //     offset--;
-    //     fseek(fp, offset, SEEK_END);
-    //     ch = fgetc(fp);
-    // }
-
-    // int len;
-    // char buff[1024];
-    // std::string ret = "";
-    // while (1)
-    // {
-    //     len = fread(buff, 1, 1024, fp);
-    //     ret += buff;
-    //     if (feof(fp))
-    //         break;
-    // }
-    // fclose(fp);
-
-    // return ret;
-    return "";
-}
-
 }

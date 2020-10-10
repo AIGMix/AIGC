@@ -217,7 +217,7 @@ bool StringHelper::IsSame(const std::string& str1, const std::string& str2, bool
     return ToLower(str1) == ToLower(str2) ? true : false;
 }
 
-std::string StringHelper::Substring(const std::string &str, const std::string &start, const std::string &end, bool needEnd)
+std::string StringHelper::SubString(const std::string &str, const std::string &start, const std::string &end, bool needEnd)
 {
     if (str.length() <= 0)
         return "";

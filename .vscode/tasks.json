@@ -6,7 +6,7 @@
             "command": "g++.exe",
             "args": [
                 "-g",
-                // "${workspaceRoot}/AIGC/main.cpp",
+                "${workspaceRoot}/AIGC/src/Main2.cpp",
                 "${workspaceRoot}/AIGC/src/*.cpp",
                 "${workspaceRoot}/AIGC/tidal/*.cpp",
                 "-o",
@@ -16,6 +16,38 @@
                 "-std=c++11",
                 "-lws2_32",  //HttpHelper需要
                 
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "currentfile",
+            "command": "g++.exe",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceRoot}/main.exe",
+                "-I${workspaceRoot}/AIGC/include",
+                "-std=c++11",
+                "-lws2_32", //HttpHelper需要
             ],
             "problemMatcher": {
                 "owner": "cpp",

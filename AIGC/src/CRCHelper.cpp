@@ -1,4 +1,5 @@
 #include "CRCHelper.h"
+#include "FileHelper.h"
 
 namespace aigc
 {
@@ -65,7 +66,7 @@ namespace aigc
      * 而要使用0xA001与数据进行校验也应该使0xAF5D高低位换顺序为0xBAF5=1011 1010 1111 0101B。
      * 正向校验使用左移位，反向校验使用右移位，其实原理是一样的，得看校验的数据高低位顺序。
      */
-    unsigned int CRCHelper::GetCRC16(unsigned char *str, int length)
+    static unsigned int GetCRC16(unsigned char *str, int length)
     {
         unsigned int i, j, check;
         unsigned int crc_reg = 0xFFFF;
@@ -85,7 +86,7 @@ namespace aigc
         return crc_reg;
     }
 
-    unsigned int CRCHelper::GetCRC32(unsigned char *str, int length)
+    static unsigned int GetCRC32(unsigned char *str, int length)
     {
         if (length < 1)
             return 0xFFFFFFFF;
@@ -99,21 +100,24 @@ namespace aigc
         return crc;
     }
 
+    unsigned int CRCHelper::Get(Type type, unsigned char *str, int length)
+    {
+        if (type == Type::CRC16)
+            return GetCRC16(str, length);
+        if (type == Type::CRC32)
+            return GetCRC32(str, length);
+        return -1;
+    }
+
+    unsigned int CRCHelper::GetFile(Type type, std::string filePath)
+    {
+        int length = 0;
+        char *content = FileHelper::ReadByte(filePath, length);
+        if (content == NULL)
+            return -1;
+
+        unsigned int ret = Get(type, (unsigned char*)content, length);
+        free(content);
+        return ret;
+    }
 }
-
-// int main()
-// {
-//     Byte test[] = "##husadhf";
-//     Byte test2[] = "asdfhjkas##husadhf";
-//     int size1 = sizeof(test);
-//     int size2 = sizeof(test2);
-//     FormatFinalPacket(test, size1);
-//     FormatFinalPacket(test2, size2);
-
-//     unsigned char buffer[10];
-//     buffer[0] = FRAME_CHAR_EOF_1;
-//     buffer[1] = FRAME_CHAR_EOF_2;
-//     buffer[2] = '\0';
-//     memcpy(buffer + 3, FRAME_CHAR_EOF, 3);
-//     return 0;
-// }

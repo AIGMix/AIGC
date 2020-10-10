@@ -23,7 +23,7 @@ namespace aigc
         return ret;
     }
 
-    bool PathHelper::IsAbsolutePath(const std::string &path)
+    bool PathHelper::IsFullPath(const std::string &path)
     {
         /**
          * 样例 g:/  
@@ -42,7 +42,7 @@ namespace aigc
         std::string dirname = GetDirName(path);
 
         std::vector<std::string> paths = StringHelper::Split(dirname, '/');
-        if (IsAbsolutePath(dirname) == false)
+        if (IsFullPath(dirname) == false)
         {
             std::string pwd = StringHelper::Replace(GetWorkPath(), "\\", "/");
             std::vector<std::string> pwdPaths = StringHelper::Split(pwd, '/');
@@ -281,7 +281,7 @@ namespace aigc
     ret = aigc::PathHelper::GetFielExt(name);
 
     std::string name2 = "../my/test.json";
-    bool flag = aigc::PathHelper::IsAbsolutePath(name2);
+    bool flag = aigc::PathHelper::IsFullPath(name2);
     ret = aigc::PathHelper::GetFullPath(name2);
 
     std::string name3 = "D:/code/Common/AIGPY/";

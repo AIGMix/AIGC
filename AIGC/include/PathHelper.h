@@ -19,7 +19,7 @@ public:
      * @brief 是否为绝对路径
      * @param path 路径
      */
-    static bool IsAbsolutePath(const std::string &path);
+    static bool IsFullPath(const std::string &path);
 
     /**
      * @brief 获取绝对路径
@@ -36,7 +36,7 @@ public:
     static std::string ReplaceLimitChar(const std::string &path, const std::string &newChar = " ");
 
     /**
-     * @brief 获取目录下的所有文件名
+     * @brief 获取目录下的所有文件
      * @param path 路径
      * @return 文件名路径数组
      */
