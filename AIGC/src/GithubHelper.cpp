@@ -16,14 +16,15 @@ namespace aigc
 
         std::vector<std::string> names;
         names.push_back("tag_name");
-        // std::string version = JsonHelper::GetValue(result.dataStr, names);
-        // return version;
+        std::string version;
+        if (JsonHelper::GetValue(version, result.dataStr, names))
+            return version;
         return "";
     }
 }
 
-//  int main()
-//  {
-//     std::string ver = aigc::GithubHelper::GetLatestVersion("yaronzz","Tidal-Media-Downloader");
-//     return 0;
-//  }
+ int main()
+ {
+    std::string ver = aigc::GithubHelper::GetLatestVersion("yaronzz","Tidal-Media-Downloader");
+    return 0;
+ }

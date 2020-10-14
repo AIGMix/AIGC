@@ -251,10 +251,10 @@ namespace aigc
         static bool ObjectToJson(std::list<TYPE> &obj, rapidjson::Value &jsonValue, rapidjson::Document::AllocatorType &allocator)
         {
             rapidjson::Value array(rapidjson::Type::kArrayType);
-            for (int i = 0; i < obj.size(); i++)
+            for (auto i = obj.begin(); i != obj.end(); i++)
             {
                 rapidjson::Value item;
-                if (!ObjectToJson(obj[i], item, allocator))
+                if (!ObjectToJson(*i, item, allocator))
                     return false;
 
                 array.PushBack(item, allocator);
@@ -404,18 +404,38 @@ namespace aigc
     public:
         /**
          * @brief conver json string to class | struct
-         * @param obj : class or struct
+         * @param obj : class or struct or base-types
          * @param jsonStr : json string 
+         * @param keys : obj-item keys
          */
         template <typename T>
-        static inline bool JsonToObject(T &obj, const std::string &jsonStr)
+        static inline bool JsonToObject(T &obj, const std::string &jsonStr, std::vector<std::string> keys = {})
         {
             rapidjson::Document root;
             root.Parse(jsonStr.c_str());
             if (root.IsNull())
                 return false;
 
-            return JsonToObject(obj, root);
+            rapidjson::Value value;
+            for (std::vector<std::string>::iterator it = keys.begin(); it != keys.end(); ++it)
+            {
+                const char *find = (*it).c_str();
+                if (value.IsNull())
+                {
+                    if (!root.HasMember(find))
+                        return false;
+                    value = root[find];
+                }
+                else if (!value.IsObject() || !value.HasMember(find))
+                    return false;
+                else
+                    value = value[find];
+            }
+
+            if (value.IsNull())
+                return JsonToObject(obj, root);
+            else
+                return JsonToObject(obj, value);
         }
 
         /**
@@ -459,6 +479,8 @@ namespace aigc
         static bool WriteMembers(std::vector<std::string> &names, int index, rapidjson::Value &jsonValue, TYPE &arg)
         {
             const char *key = names[index].c_str();
+            if (!jsonValue.IsObject())
+                return false;
             if (!jsonValue.HasMember(key))
                 return true;
 
