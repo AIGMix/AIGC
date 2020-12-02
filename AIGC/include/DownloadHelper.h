@@ -13,6 +13,4 @@ namespace aigc
         static bool Start(const std::string &url, const std::string &path, ThreadPoolHelper &pool);
     };
 
-    
-
 } // namespace aigc

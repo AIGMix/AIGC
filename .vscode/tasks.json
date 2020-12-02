@@ -2,18 +2,49 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "winmain",
+            "label": "aigc",
             "command": "g++.exe",
             "args": [
                 "-g",
-                "${workspaceRoot}/AIGC/src/*.cpp",
-                "${workspaceRoot}/AIGC/tidal/*.cpp",
+                "${workspaceRoot}/AIGC/Main.cpp",
                 "-o",
                 "${workspaceRoot}/main.exe",
                 "-I${workspaceRoot}/AIGC/include",
-                "-I${workspaceRoot}/AIGC/tidal",
-                "-std=c++11",
-                "-lws2_32",  //HttpHelper需要
+                "-std=c++17",
+                "-lws2_32",
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "tidal",
+            "command": "g++.exe",
+            "args": [
+                "-g",
+                "${workspaceRoot}/Tidal/*.cpp",
+                "-o",
+                "${workspaceRoot}/main.exe",
+                "-I${workspaceRoot}/AIGC/include",
+                "-I${workspaceRoot}/Tidal",
+                "-std=c++17",
+                "-lws2_32",  
                 
             ],
             "problemMatcher": {
@@ -37,16 +68,18 @@
             }
         },
         {
-            "label": "currentfile",
-            "command": "g++.exe",
+            "label": "lanzouyun",
+            "command": "g++",
             "args": [
                 "-g",
-                "${file}",
+                "${workspaceRoot}/Lanzouyun/API.cpp",
                 "-o",
                 "${workspaceRoot}/main.exe",
                 "-I${workspaceRoot}/AIGC/include",
-                "-std=c++11",
-                "-lws2_32", //HttpHelper需要
+                // "-I${workspaceRoot}/Lanzouyun",
+                "-std=c++17",
+                "-lws2_32",  
+                
             ],
             "problemMatcher": {
                 "owner": "cpp",
@@ -67,6 +100,6 @@
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
     ]
 }

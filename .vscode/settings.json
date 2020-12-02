@@ -5,7 +5,9 @@
         "*.ls": "lua",
         "*.prl": "ini",
         "*.pri": "ini",
-        "*log*": "log",
+        "*.01": "log",
+        "*.h": "cpp",
+        "*.md": "markdown",
         "*.cpp": "cpp",
         "algorithm": "cpp",
         "atomic": "cpp",
@@ -70,6 +72,21 @@
         "iomanip": "cpp",
         "random": "cpp",
         "sstream": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "shared_mutex": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "clocale": "cpp",
+        "codecvt": "cpp",
+        "condition_variable": "cpp",
+        "deque": "cpp",
+        "future": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "queue": "cpp",
+        "stack": "cpp",
+        "thread": "cpp",
+        "typeindex": "cpp",
+        "unordered_set": "cpp"
     }
 }

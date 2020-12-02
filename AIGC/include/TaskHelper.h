@@ -5,16 +5,14 @@
 
 namespace aigc
 {
-    typedef struct TaskDataStruct
+    class Task
     {
-        int ivalue;
-        void* pvalue;
-        std::string svalue;
-    }TaskData;
+    public:
+        std::function<void(Task&)> func;
 
-    typedef struct TaskStruct
-    {
-        std::function<void(TaskData&)> work;
-        TaskData data;
-    }Task;
+    public:
+        int dataInt;
+        char *dataPtr;
+        std::string dataString;
+    };
 }

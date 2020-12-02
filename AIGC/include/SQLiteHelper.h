@@ -60,7 +60,7 @@ public:
 private:
     std::string m_tableName;
     std::list<Field> m_fields;
-}
+};
 
 
 } 

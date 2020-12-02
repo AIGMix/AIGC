@@ -4,6 +4,9 @@
 #include <iostream>
 #include <functional>
 
+#include "JsonHelper.h"
+#include "HttpHelper.h"
+
 namespace aigc
 {
 
@@ -14,7 +17,7 @@ public:
      * @brief 下载进度回调
      * @param totalSize 文件字节数
      * @param currentSize 已下载字节数
-     * @return bool Flase则终止下载
+     * @return bool False则终止下载
      */
     typedef std::function<bool(const int totalSize, const int currentSize)> UpdateDownloadNotify;
 
@@ -24,7 +27,17 @@ public:
      * @param repository 仓库名
      * @return string 版本号
      */
-    static std::string GetLatestVersion(const std::string &author, const std::string &repository);
+    static std::string GetLatestVersion(const std::string &author, const std::string &repository)
+    {
+        std::string url = "https://api.github.com/repos/" + author + '/' + repository + "/releases/latest";
+
+        HttpHelper::Response result = HttpHelper::Get(url);
+        if (!result.success)
+            return "";
+
+        std::string version = JsonHelper::GetObjectByJson<std::string>(result.dataStr, {"tag_name"});
+        return version;
+    }
 
     /**
      * @brief 下载文件

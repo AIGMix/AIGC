@@ -13,7 +13,7 @@ template <typename T>
 class QueueHelper
 {
 public:
-    QueueHelper(int size)
+    QueueHelper(int maxSize)
     {
         m_maxSize = size;
         m_stop = false;
@@ -25,11 +25,11 @@ public:
      */
     bool Add(T data)
     {
-        std::unique_lock<std::mutex> locker(m_mutex);
         m_notFull.wait(locker, [this] { return m_stop || (m_queue.size() < m_maxSize); });
         if (m_stop)
             return false;
 
+        std::unique_lock<std::mutex> locker(m_mutex);
         m_queue.push_back(std::forward<T>(data));
         m_notEmpty.notify_one();
         return true;
@@ -41,11 +41,11 @@ public:
      */
     bool Get(T &data)
     {
-        std::unique_lock<std::mutex> locker(m_mutex);
         m_notEmpty.wait(locker, [this] { return m_stop || (m_queue.size() > 0); });
         if (m_stop)
             return false;
 
+        std::unique_lock<std::mutex> locker(m_mutex);
         data = m_queue.front();
         m_queue.pop_front();
         m_notFull.notify_one();
@@ -57,10 +57,7 @@ public:
      */
     void Stop()
     {
-        { //lock_guard的生命周期
-            std::lock_guard<std::mutex> locker(m_mutex);
-            m_stop = true;
-        }
+        m_stop = true;
         m_notFull.notify_all();
         m_notEmpty.notify_all();
     }
