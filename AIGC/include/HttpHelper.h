@@ -266,7 +266,7 @@ namespace aigc
             if (totalSize <= 0)
             {
                 result.success = false;
-                result.errMessage = "Nothing receive.error:" +  std::to_string(GetLastError());
+                result.errMessage = "Nothing receive." + client.GetLastErrorMessage(&result.status);
                 return result;
             }
 

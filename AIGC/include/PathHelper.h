@@ -2,11 +2,16 @@
 
 #include <io.h>
 #include <stdio.h>
-#include <direct.h>
 #include <string.h>
 #include <iostream>
 #include <string>
 #include <vector>
+#ifndef _WIN32
+    #include <dirent.h>
+    #include <sys/stat.h>
+    #include <sys/types.h>
+#endif // !_WIN32
+
 
 #include "StringHelper.h"
 namespace aigc
@@ -118,11 +123,13 @@ namespace aigc
          */
         static strings GetAllFiles(const std::string &path)
         {
+            strings ret;
+            std::string tmpPath;
+
+#ifdef _WIN32
             /*文件句柄和文件信息*/
             long fileHandle = 0;
             struct _finddata_t fileinfo;
-            std::string tmpPath;
-            strings ret;
 
             if ((fileHandle = _findfirst(tmpPath.assign(path).append("/*").c_str(), &fileinfo)) == -1)
                 return ret;
@@ -134,7 +141,6 @@ namespace aigc
                 {
                     if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0)
                     {
-                        // ret.push_back(tmpPath.assign(path).append("/").append(fileinfo.name));
                         /*递归搜索*/
                         strings subfiles = GetAllFiles(tmpPath.assign(path).append("/").append(fileinfo.name));
                         ret.insert(ret.end(), subfiles.begin(), subfiles.end());
@@ -149,13 +155,56 @@ namespace aigc
 
             /*关闭句柄*/
             _findclose(fileHandle);
+#else
+            DIR *dir;
+            struct dirent *ptr;
+            char base[1000];
+
+            if ((dir = opendir(path.c_str())) == NULL)
+                return ret;
+
+            while ((ptr = readdir(dir)) != NULL)
+            {
+                if (strcmp(ptr->d_name, ".") == 0 || strcmp(ptr->d_name, "..") == 0) 
+                    continue;
+
+                tmpPath.assign(path).append("/").append(ptr->d_name);
+
+                //file
+                if (ptr->d_type == 8) 
+                    ret.push_back(tmpPath);
+                //link file 
+                else if (ptr->d_type == 10) 
+                    ret.push_back(tmpPath);
+                //dir
+                else if (ptr->d_type == 4) 
+                {
+                    strings subfiles = GetAllFiles(base);
+                    ret.insert(ret.end(), subfiles.begin(), subfiles.end());
+                }
+            }
+            closedir(dir);
+            
+#endif // _WIN32
             return ret;
+        }
+        
+        /**
+         * @brief 新建目录
+         * @param path 路径
+         */
+        static bool Mkdir(const std::string& path)
+        {
+#ifdef _WIN32
+            return mkdir(path.c_str()) == 0;
+#else
+            return mkdir(path.c_str(), S_IRWXU) == 0;
+#endif //_WIN32
         }
 
         /**
          * @brief 新建多层目录
          * @param path 路径
-         * @return True 成功
          */
         static bool Mkdirs(const std::string& path)
         {
@@ -180,7 +229,7 @@ namespace aigc
                     return false;
             }
 
-            if (mkdir(path.c_str()) != 0)
+            if (mkdir(path.c_str(),S_IRWXU) != 0)
                 return false;
             return true;
         }
@@ -195,11 +244,13 @@ namespace aigc
             if (access(path.c_str(), 0) != 0)
                 return true;
 
+            strings ret;
+            std::string tmpPath;
+            
+#ifdef _WIN32
             /*文件句柄和文件信息*/
             long fileHandle = 0;
             struct _finddata_t fileinfo;
-            std::string tmpPath;
-            std::vector<std::string> ret;
 
             if ((fileHandle = _findfirst(tmpPath.assign(path).append("/*").c_str(), &fileinfo)) != -1)
             {
@@ -224,8 +275,37 @@ namespace aigc
                 /*关闭句柄*/
                 _findclose(fileHandle);
             }
+#else
+            DIR *dir;
+            struct dirent *ptr;
+            char base[1000];
+
+            if ((dir = opendir(path.c_str())) == NULL)
+                return true;
+
+            while ((ptr = readdir(dir)) != NULL)
+            {
+                if (strcmp(ptr->d_name, ".") == 0 || strcmp(ptr->d_name, "..") == 0)
+                    continue;
+
+                tmpPath.assign(path).append("/").append(ptr->d_name);
+
+                //file
+                if (ptr->d_type == 8)
+                    remove(tmpPath.c_str());
+                //link file
+                else if (ptr->d_type == 10)
+                    remove(tmpPath.c_str());
+                //dir
+                else if (ptr->d_type == 4)
+                    Remove(base);
+            }
+            closedir(dir);
+#endif // _WIN32
+
             return rmdir(path.c_str()) == 0;
         }
+        
 
         /**
          * @brief 复制目录

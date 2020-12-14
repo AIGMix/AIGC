@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <string>
+#include <string.h>
 #include <memory>
 #include <mutex>
 #include <iostream>
@@ -20,13 +21,15 @@ namespace aigc
     #include <ws2tcpip.h>
     #define AIGC_SOCKET_ERROR WSAGetLastError()
 #else
+    #include <netdb.h>
     #include <sys/socket.h>
     #include <sys/time.h>
     #include <sys/epoll.h>
     #include <arpa/inet.h>
     #include <unistd.h>
+    
     #define AIGC_SOCKET_ERROR errno
-    #define INVALID_SOCKET -1;
+    #define INVALID_SOCKET -1
 #endif
 
     class SocketHelper
@@ -111,7 +114,13 @@ namespace aigc
         void SocketClose(int &socket)
         {
             if (socket != (int)INVALID_SOCKET)
+            {
+#ifdef _WIN32
                 closesocket(socket);
+#else
+                close(socket);
+#endif
+            }
             socket = (int)INVALID_SOCKET;
         }
         
@@ -169,7 +178,11 @@ namespace aigc
                 if (NULL == p)
                     break;
 
+#ifdef _WIN32
                 memcpy(&(inAddr.S_un.S_addr), p, he->h_length);
+#else
+                memcpy(&(inAddr.s_addr), p, he->h_length);
+#endif
                 std::string ip = GetIpByInAddr(inAddr);
 
                 array.push_back(ip);
@@ -208,7 +221,7 @@ namespace aigc
             int len = sizeof(addr);
 
             int port = -1;
-            if (getsockname(m_socket, (struct sockaddr *)&addr, &len) == 0)
+            if (getsockname(m_socket, (struct sockaddr *)&addr, (unsigned int*)&len) == 0)
                 port = ntohs(addr.sin_port);
             return port;
         }

@@ -100,6 +100,7 @@ AIGC/ProWin/x64/Debug/ProWin.tlog/ProWin.lastbuildstate
 /AIGC/ProWin/.vs
 /third
 /AIGC/.vs
+Main.cpp
 Lanzouyun/API.cpp
 Lanzouyun/Model.h
 Music/Enum.h
