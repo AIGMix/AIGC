@@ -100,3 +100,12 @@ AIGC/ProWin/x64/Debug/ProWin.tlog/ProWin.lastbuildstate
 /AIGC/ProWin/.vs
 /third
 /AIGC/.vs
+Lanzouyun/API.cpp
+Lanzouyun/Model.h
+Music/Enum.h
+Music/Interface.h
+Music/Model.h
+Tidal/TidalClient.cpp
+Tidal/TidalClient.h
+Tidal/TidalEnum.h
+Tidal/TidalModel.h

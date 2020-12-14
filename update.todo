@@ -1,0 +1,40 @@
+Todo:
+    加密解密:
+        ✔ 问题：解除Base64限制 @done(20-10-27 10:42)
+        ☐ 优化：CRC
+        ☐ 编码：AES
+        ☐ 编码：DES
+        ☐ 编码：MD5
+        ☐ 编码：RSA
+    网络相关:
+        ✔ 编码：Socket @done(20-10-29 14:05)
+        ☐ 优化：Http
+        ☐ 编码：Download
+        ✔ 编码：TCPClient @done(20-10-29 13:48)
+        ☐ 编码：TCPServer
+        ☐ 编码：UDPClient
+        ☐ 编码：UDPServer
+        ☐ 编码：Email
+        ☐ 编码：FTP
+    音视频:
+        ☐ 编码：FFmpeg
+        ☐ 编码：M3u8
+    工具:
+        ☐ 编码：String @high %60
+        ✔ 编码：Chinese @done(20-10-27 16:25)
+        ✔ 编码：File @done(20-10-27 14:08)
+        ✔ 编码：Path @done(20-10-27 14:33)
+        ✔ 编码：Math @done(20-10-27 14:37)
+        ✔ 编码：Json @done(20-10-27 14:37)
+        ✔ 编码：Time @done(20-10-27 14:40)
+        ✔ 编码：Random @done(20-10-27 15:12)
+        ✔ 优化：ThreadPool @done(20-10-28 17:41)
+        ✔ 优化：Queue @done(20-10-28 17:19)
+        ☐ 编码：System
+        ✔ 优化：Task @done(20-10-28 17:41)
+        ☐ 优化：Hash
+        ☐ 编码：Log
+    其他:
+        ☐ 编码：Github
+        ☐ 编码：SQLite
+        ☐ 编码：Zip
