@@ -178,7 +178,11 @@ namespace aigc
                 if (NULL == p)
                     break;
 
+#ifdef _WIN32
                 memcpy(&(inAddr.S_un.S_addr), p, he->h_length);
+#else
+                memcpy(&(inAddr.s_addr), p, he->h_length);
+#endif
                 std::string ip = GetIpByInAddr(inAddr);
 
                 array.push_back(ip);
@@ -217,7 +221,7 @@ namespace aigc
             int len = sizeof(addr);
 
             int port = -1;
-            if (getsockname(m_socket, (struct sockaddr *)&addr, &len) == 0)
+            if (getsockname(m_socket, (struct sockaddr *)&addr, (unsigned int*)&len) == 0)
                 port = ntohs(addr.sin_port);
             return port;
         }

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <functional>
 
 #include "SocketHelper.h"
@@ -192,7 +193,7 @@ namespace aigc
             struct sockaddr_in raddr;
             int len = sizeof(raddr);
 
-            int socket = accept(m_socket, (struct sockaddr *)&raddr, &len);
+            int socket = accept(m_socket, (struct sockaddr *)&raddr, (unsigned int*)&len);
             if (socket <= 0)
             {
                 SetLastError("Accept client failed!");

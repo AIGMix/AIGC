@@ -8,10 +8,10 @@
                 "-g",
                 "${workspaceRoot}/Main.cpp",
                 "-o",
-                "${workspaceRoot}/main.exe",
+                "${workspaceRoot}/main",
                 "-I${workspaceRoot}/AIGC/include",
                 "-std=c++17",
-                "-lws2_32",
+                // "-lws2_32",
             ],
             "problemMatcher": {
                 "owner": "cpp",
