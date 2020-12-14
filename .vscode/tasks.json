@@ -3,10 +3,10 @@
     "tasks": [
         {
             "label": "aigc",
-            "command": "g++.exe",
+            "command": "g++",
             "args": [
                 "-g",
-                "${workspaceRoot}/AIGC/Main.cpp",
+                "${workspaceRoot}/Main.cpp",
                 "-o",
                 "${workspaceRoot}/main.exe",
                 "-I${workspaceRoot}/AIGC/include",
