@@ -6,12 +6,12 @@
             "command": "g++",
             "args": [
                 "-g",
-                "${workspaceRoot}/Main.cpp",
+                "${workspaceRoot}/main.cpp",
                 "-o",
-                "${workspaceRoot}/main",
+                "${workspaceRoot}/main.exe",
                 "-I${workspaceRoot}/AIGC/include",
                 "-std=c++17",
-                // "-lws2_32",
+                "-lws2_32",
             ],
             "problemMatcher": {
                 "owner": "cpp",
@@ -80,6 +80,40 @@
                 "-std=c++17",
                 "-lws2_32",  
                 
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+
+        {
+            "label": "qobuz",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${workspaceRoot}/Qobuz/Client.cpp",
+                "-o",
+                "${workspaceRoot}/main.exe",
+                "-I${workspaceRoot}/AIGC/include",
+                "-I${workspaceRoot}/Qobuz",
+                "-std=c++17",
+                "-lws2_32",
             ],
             "problemMatcher": {
                 "owner": "cpp",

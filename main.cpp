@@ -1,15 +1,4 @@
-
-#include "Base64Helper.h"
-#include "StringHelper.h"
-#include "HttpHelper.h"
-#include "RandomHelper.h"
-#include "ChineseHelper.h"
-#include "GithubHelper.h"
-#include "CRCHelper.h"
-#include "TCPClientHelper.h"
-#include "TCPServerHelper.h"
-#include "TimeHelper.h"
-
+#include "aigc/AIGCDef.h"
 using namespace std;
 using namespace aigc;
 
@@ -105,8 +94,56 @@ void CallTets()
     return;
 }
 
+// void getSecret()
+// {
+//     HttpHelper::Get()
+// }
+
+struct User
+{
+    int id;
+    string email;
+    string display_name;
+    string country_code;
+    string avatar;
+    
+    string offer;
+    string user_auth_token;
+
+    string username;
+    string password;
+    string appId;
+
+    AIGC_JSON_HELPER(id, email, display_name, country_code, avatar)
+};
+
+
+void testLogin()
+{
+    string username = "Yaron202101@icloud.com";
+    string password = "ede4477fe3b8ba54cde94b9049cba838";
+    string appId = "950096963";
+
+    string url = "https://www.qobuz.com/api.json/0.2/user/login";
+    url += "?username=" + username + "&email=" + username + "&password=" + password + "&extra=partner" + "&app_id=" + appId;
+    vector<string> headers = {
+        "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0",
+        "Authorization:Basic WlRKbE9XTmhaR1V0TnpsbVpTMDBaR1UyTFRrd1lqTXRaRGsxT0RSbE1Ea3dPRE01Ok1UUmpaVFZqTTJFdE9HVmxaaTAwT1RVM0xXRm1Oamt0TlRsbE9ERmhObVl5TnpJNQ==",
+        "Content-Type: application/x-www-form-urlencoded",};
+    HttpHelper::Response resp = HttpHelper::Get(url, {}, headers);
+
+
+
+    return;
+}
+
+
 int main()
 {
+    testLogin();
+    bool check= PathHelper::Mkdirs("./111/222/333");
+    HttpHelper::Response html2 = HttpHelper::Get("www.baidu.com");
+
     CallTets();
     string str = "hello world";
     string ret = Base64Helper::Encode(str);
@@ -137,7 +174,6 @@ int main()
     // }
     // server.CloseListen();
     // return 0;
-    // HttpHelper::Response html2 = HttpHelper::Get("www.baidu.com");
     TCPClientHelper client;
     bool isc = client.Connect("192.168.0.141", 6800);
     // while(1)

@@ -384,3 +384,9 @@ build/CMakeFiles/NightlyUpdate.dir/progress.make
 /build
 .gitignore
 main
+/借鉴
+/test.vcxproj.filters
+/test.vcxproj.user
+/x64
+/Debug
+/.vs
